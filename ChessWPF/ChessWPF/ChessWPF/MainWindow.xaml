@@ -7,8 +7,7 @@
         mc:Ignorable="d"
         ResizeMode="NoResize"
         Title="ChessWPF"
-        Height="930"
-        Width="950" 
+        Width="750"
         Icon="Resources/Figures/rook_dark.png">
     <controls:Board/>
 </Window>
