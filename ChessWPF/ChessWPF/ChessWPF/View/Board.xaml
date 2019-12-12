@@ -1,9 +1,173 @@
 ﻿<UserControl x:Class="ChessWPF.Views.Board"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:ChessWPF.View"
+    xmlns:conv="clr-namespace:ChessWPF.Converters">
+	
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<conv:TilesToTileConverter x:Key="TilesToTile"/>
+		</ResourceDictionary>
+	</UserControl.Resources>
 
-    <Grid x:Name="RootGrid">
-        <UniformGrid x:Name="UniformGrid" Margin="10" Rows="8" Height="640" Width="640" />
-    </Grid>
+	<Grid x:Name="RootGrid" Margin="10">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+
+		<local:BoardTileView Grid.Row="0" Grid.Column="0" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=0}"/>
+		<local:BoardTileView Grid.Row="0" Grid.Column="1" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=1}"/>
+		<local:BoardTileView Grid.Row="0" Grid.Column="2" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=2}"/>
+		<local:BoardTileView Grid.Row="0" Grid.Column="3" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=3}"/>
+		<local:BoardTileView Grid.Row="0" Grid.Column="4" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=4}"/>
+		<local:BoardTileView Grid.Row="0" Grid.Column="5" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=5}"/>
+		<local:BoardTileView Grid.Row="0" Grid.Column="6" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=6}"/>
+		<local:BoardTileView Grid.Row="0" Grid.Column="7" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=7}"/>
+
+		<local:BoardTileView Grid.Row="1" Grid.Column="0" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=8}"/>
+		<local:BoardTileView Grid.Row="1" Grid.Column="1" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=9}"/>
+		<local:BoardTileView Grid.Row="1" Grid.Column="2" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=10}"/>
+		<local:BoardTileView Grid.Row="1" Grid.Column="3" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=11}"/>
+		<local:BoardTileView Grid.Row="1" Grid.Column="4" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=12}"/>
+		<local:BoardTileView Grid.Row="1" Grid.Column="5" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=13}"/>
+		<local:BoardTileView Grid.Row="1" Grid.Column="6" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=14}"/>
+		<local:BoardTileView Grid.Row="1" Grid.Column="7" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=15}"/>
+
+		<local:BoardTileView Grid.Row="2" Grid.Column="0" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=16}"/>
+		<local:BoardTileView Grid.Row="2" Grid.Column="1" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=17}"/>
+		<local:BoardTileView Grid.Row="2" Grid.Column="2" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=18}"/>
+		<local:BoardTileView Grid.Row="2" Grid.Column="3" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=19}"/>
+		<local:BoardTileView Grid.Row="2" Grid.Column="4" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=20}"/>
+		<local:BoardTileView Grid.Row="2" Grid.Column="5" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=21}"/>
+		<local:BoardTileView Grid.Row="2" Grid.Column="6" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=22}"/>
+		<local:BoardTileView Grid.Row="2" Grid.Column="7" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=23}"/>
+
+		<local:BoardTileView Grid.Row="3" Grid.Column="0" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=24}"/>
+		<local:BoardTileView Grid.Row="3" Grid.Column="1" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=25}"/>
+		<local:BoardTileView Grid.Row="3" Grid.Column="2" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=26}"/>
+		<local:BoardTileView Grid.Row="3" Grid.Column="3" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=27}"/>
+		<local:BoardTileView Grid.Row="3" Grid.Column="4" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=28}"/>
+		<local:BoardTileView Grid.Row="3" Grid.Column="5" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=29}"/>
+		<local:BoardTileView Grid.Row="3" Grid.Column="6" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=30}"/>
+		<local:BoardTileView Grid.Row="3" Grid.Column="7" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=31}"/>
+
+		<local:BoardTileView Grid.Row="4" Grid.Column="0" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=32}"/>
+		<local:BoardTileView Grid.Row="4" Grid.Column="1" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=33}"/>
+		<local:BoardTileView Grid.Row="4" Grid.Column="2" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=34}"/>
+		<local:BoardTileView Grid.Row="4" Grid.Column="3" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=35}"/>
+		<local:BoardTileView Grid.Row="4" Grid.Column="4" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=36}"/>
+		<local:BoardTileView Grid.Row="4" Grid.Column="5" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=37}"/>
+		<local:BoardTileView Grid.Row="4" Grid.Column="6" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=38}"/>
+		<local:BoardTileView Grid.Row="4" Grid.Column="7" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=39}"/>
+
+		<local:BoardTileView Grid.Row="5" Grid.Column="0" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=40}"/>
+		<local:BoardTileView Grid.Row="5" Grid.Column="1" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=41}"/>
+		<local:BoardTileView Grid.Row="5" Grid.Column="2" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=42}"/>
+		<local:BoardTileView Grid.Row="5" Grid.Column="3" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=43}"/>
+		<local:BoardTileView Grid.Row="5" Grid.Column="4" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=44}"/>
+		<local:BoardTileView Grid.Row="5" Grid.Column="5" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=45}"/>
+		<local:BoardTileView Grid.Row="5" Grid.Column="6" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=46}"/>
+		<local:BoardTileView Grid.Row="5" Grid.Column="7" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=47}"/>
+
+		<local:BoardTileView Grid.Row="6" Grid.Column="0" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=48}"/>
+		<local:BoardTileView Grid.Row="6" Grid.Column="1" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=49}"/>
+		<local:BoardTileView Grid.Row="6" Grid.Column="2" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=50}"/>
+		<local:BoardTileView Grid.Row="6" Grid.Column="3" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=51}"/>
+		<local:BoardTileView Grid.Row="6" Grid.Column="4" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=52}"/>
+		<local:BoardTileView Grid.Row="6" Grid.Column="5" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=53}"/>
+		<local:BoardTileView Grid.Row="6" Grid.Column="6" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=54}"/>
+		<local:BoardTileView Grid.Row="6" Grid.Column="7" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=55}"/>
+
+		<local:BoardTileView Grid.Row="7" Grid.Column="0" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=56}"/>
+		<local:BoardTileView Grid.Row="7" Grid.Column="1" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=57}"/>
+		<local:BoardTileView Grid.Row="7" Grid.Column="2" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=58}"/>
+		<local:BoardTileView Grid.Row="7" Grid.Column="3" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=59}"/>
+		<local:BoardTileView Grid.Row="7" Grid.Column="4" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=60}"/>
+		<local:BoardTileView Grid.Row="7" Grid.Column="5" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=61}"/>
+		<local:BoardTileView Grid.Row="7" Grid.Column="6" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=62}"/>
+		<local:BoardTileView Grid.Row="7" Grid.Column="7" 
+                           DataContext="{Binding BoardTiles, Converter={StaticResource TilesToTile}, ConverterParameter=63}"/>
+
+	</Grid>
 
 </UserControl>

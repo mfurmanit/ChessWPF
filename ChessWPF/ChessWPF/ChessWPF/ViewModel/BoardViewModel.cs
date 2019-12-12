@@ -13,7 +13,7 @@ namespace ChessWPF.ViewModel
     class BoardViewModel
     {
         private List<BoardFigure> _FiguresList;
-        private List<BoardTile> _TilesList;
+        private List<BoardTileViewModel> _TilesList;
 
         public BoardViewModel()
         {
@@ -65,7 +65,7 @@ namespace ChessWPF.ViewModel
 
         private void GenerateTilesList()
         {
-            _TilesList = new List<BoardTile>();
+            _TilesList = new List<BoardTileViewModel>();
 
             var BLACK_TILE_COLOR = Brushes.LightSteelBlue;
             var WHITE_TILE_COLOR = Brushes.White;
@@ -76,7 +76,8 @@ namespace ChessWPF.ViewModel
 
             for (int tileIndex = 1; tileIndex <= tilesCount; tileIndex++)
             {
-                BoardTile tile = new BoardTile {
+                BoardTileViewModel tile = new BoardTileViewModel
+				{
                     Background = isWhite ? WHITE_TILE_COLOR : BLACK_TILE_COLOR,
                     Figure = _FiguresList.FirstOrDefault(figure => figure.TileIndex == tileIndex),
                     Index = tileIndex,
@@ -97,7 +98,7 @@ namespace ChessWPF.ViewModel
             set { _FiguresList = value; }
         }
 
-        public List<BoardTile> BoardTiles
+        public List<BoardTileViewModel> BoardTiles
         {
             get { return _TilesList; }
             set { _TilesList = value; }

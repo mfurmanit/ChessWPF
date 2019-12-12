@@ -15,65 +15,65 @@ namespace ChessWPF.Views
         public Board()
         {
             InitializeComponent();
-			DataContextChanged += Board_DataContextChanged;
+			//DataContextChanged += Board_DataContextChanged;
 		}
 
-		private void Board_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-		{
-			DrawTilesOnBoard();
-		}
+		//private void Board_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+		//{
+		//	DrawTilesOnBoard();
+		//}
 
-		private void DrawTilesOnBoard()
-        {
-			if (!(DataContext is BoardViewModel))
-				return;
+		//private void DrawTilesOnBoard()
+  //      {
+		//	if (!(DataContext is BoardViewModel))
+		//		return;
 
-			BoardViewModel model =(BoardViewModel)DataContext;
-            model.BoardTiles.ForEach(tile =>
-            {
+		//	BoardViewModel model =(BoardViewModel)DataContext;
+  //          model.BoardTiles.ForEach(tile =>
+  //          {
 
-                Canvas canvas = new Canvas();
-                canvas.Name = "CANVAS_" + tile.Index.ToString();
+  //              Canvas canvas = new Canvas();
+  //              canvas.Name = "CANVAS_" + tile.Index.ToString();
 
-                Rectangle rect = new Rectangle
-                {
-                    Width = 80,
-                    Height = 80,
-                    Name = "Tile" + tile.Index,
-                    Stroke = tile.Stroke,
-                    Fill = tile.Background
-                };
+  //              Rectangle rect = new Rectangle
+  //              {
+  //                  Width = 80,
+  //                  Height = 80,
+  //                  Name = "Tile" + tile.Index,
+  //                  Stroke = tile.Stroke,
+  //                  Fill = tile.Background
+  //              };
 
-                Canvas.SetZIndex(rect, 1);
-                canvas.Children.Add(rect);
+  //              Canvas.SetZIndex(rect, 1);
+  //              canvas.Children.Add(rect);
 
-                if (tile.Figure != null) {
+  //              if (tile.Figure != null) {
 
-                    Image image = new Image
-                    {
-                        Width = 80,
-                        Height = 75,
-                        Name = tile.Figure.Type.ToString()
-                    };
+  //                  Image image = new Image
+  //                  {
+  //                      Width = 80,
+  //                      Height = 75,
+  //                      Name = tile.Figure.Type.ToString()
+  //                  };
 
-                    ImageSource imageSource = new BitmapImage(new Uri(tile.Figure.Path, UriKind.Relative));
-                    image.Source = imageSource;
-                    image.Cursor = Cursors.Hand;
-                    image.MouseDown += new MouseButtonEventHandler(Image_MouseDown);
+  //                  ImageSource imageSource = new BitmapImage(new Uri(tile.Figure.Path, UriKind.Relative));
+  //                  image.Source = imageSource;
+  //                  image.Cursor = Cursors.Hand;
+  //                  image.MouseDown += new MouseButtonEventHandler(Image_MouseDown);
 
-                    Canvas.SetZIndex(image, 2);
-                    canvas.Children.Add(image);
-                }
+  //                  Canvas.SetZIndex(image, 2);
+  //                  canvas.Children.Add(image);
+  //              }
 
-                UniformGrid.Children.Add(canvas);
-            });
-        }
+  //              UniformGrid.Children.Add(canvas);
+  //          });
+  //      }
 
-        private void Image_MouseDown(object sender, MouseEventArgs e)
-        {
-            Image obj = (Image) sender;
-            MessageBox.Show($"You clicked {obj.Name}!");
-        }
+  //      private void Image_MouseDown(object sender, MouseEventArgs e)
+  //      {
+  //          Image obj = (Image) sender;
+  //          MessageBox.Show($"You clicked {obj.Name}!");
+  //      }
 
     }
 }
