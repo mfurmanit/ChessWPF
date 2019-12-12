@@ -59,6 +59,7 @@
     <Compile Include="Model\BoardTile.cs" />
     <Compile Include="Model\Constants\FigureColor.cs" />
     <Compile Include="Model\Constants\FigureType.cs" />
+    <Compile Include="Utils\BindableBase.cs" />
     <Compile Include="ViewModel\BoardViewModel.cs" />
     <Compile Include="View\Board.xaml.cs">
       <DependentUpon>Board.xaml</DependentUpon>
