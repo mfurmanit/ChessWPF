@@ -15,12 +15,20 @@ namespace ChessWPF.Views
         public Board()
         {
             InitializeComponent();
-            DrawTilesOnBoard();
-        }
+			DataContextChanged += Board_DataContextChanged;
+		}
 
-        private void DrawTilesOnBoard()
+		private void Board_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+		{
+			DrawTilesOnBoard();
+		}
+
+		private void DrawTilesOnBoard()
         {
-            BoardViewModel model = new BoardViewModel();
+			if (!(DataContext is BoardViewModel))
+				return;
+
+			BoardViewModel model =(BoardViewModel)DataContext;
             model.BoardTiles.ForEach(tile =>
             {
 

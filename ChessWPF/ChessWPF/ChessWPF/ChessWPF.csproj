@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MainWindowModel.cs" />
     <Compile Include="Model\BoardFigure.cs" />
     <Compile Include="Model\BoardTile.cs" />
     <Compile Include="Model\Constants\FigureColor.cs" />
