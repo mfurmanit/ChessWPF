@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -16,6 +17,18 @@ namespace ChessWPF.ViewModel
 		private SolidColorBrush stroke;
 		private bool isActive;
 		private BoardFigure figure;
+
+		public ICommand ClickCommand { get; private set; }
+
+		public BoardTileViewModel()
+		{
+			ClickCommand = new Utils.RelayCommand(Click);
+		}
+
+		private void Click()
+		{
+			throw new NotImplementedException();
+		}
 
 		public int Index
 		{
