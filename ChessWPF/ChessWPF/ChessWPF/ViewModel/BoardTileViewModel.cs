@@ -19,15 +19,34 @@ namespace ChessWPF.ViewModel
 		private BoardFigure figure;
 
 		public ICommand ClickCommand { get; private set; }
+		public event Action<BoardTileViewModel> Click = delegate { };
 
-		public BoardTileViewModel()
+		public BoardTileViewModel(BoardFigure figure, int index)
 		{
-			ClickCommand = new Utils.RelayCommand(Click);
+			SolidColorBrush BLACK_TILE_COLOR = Brushes.LightSteelBlue;
+			SolidColorBrush WHITE_TILE_COLOR = Brushes.White;
+			SolidColorBrush BORDER_TILE_COLOR = Brushes.Black;
+
+			bool isWhite = false;
+			int idx = index / 8;
+			if (idx % 2 == 0)
+				isWhite = index % 2 == 0;
+			else
+				isWhite = index % 2 == 1;
+
+			Background = isWhite ? WHITE_TILE_COLOR : BLACK_TILE_COLOR;
+			Stroke = BORDER_TILE_COLOR;
+
+			IsActive = false;
+			Index = index;
+			Figure = figure;
+
+			ClickCommand = new Utils.RelayCommand(OnClick);
 		}
 
-		private void Click()
+		private void OnClick()
 		{
-			throw new NotImplementedException();
+			Click(this);
 		}
 
 		public int Index
