@@ -55,10 +55,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Handlers\CommandHandler.cs" />
+    <Compile Include="Handlers\EventArgs.cs" />
+    <Compile Include="Handlers\EventRaiser.cs" />
+    <Compile Include="Handlers\RelayCommand.cs" />
+    <Compile Include="TestBoard\ChessBoard.xaml.cs">
+      <DependentUpon>ChessBoard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TestBoard\ChessPiece.cs" />
+    <Compile Include="TestBoard\ChessPieceTypes.cs" />
     <Compile Include="Model\BoardFigure.cs" />
     <Compile Include="Model\BoardTile.cs" />
     <Compile Include="Model\Constants\FigureColor.cs" />
     <Compile Include="Model\Constants\FigureType.cs" />
+    <Compile Include="TestBoard\ViewModelBase.cs" />
     <Compile Include="ViewModel\BoardViewModel.cs" />
     <Compile Include="View\Board.xaml.cs">
       <DependentUpon>Board.xaml</DependentUpon>
@@ -75,6 +85,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="TestBoard\ChessBoard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Board.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -120,6 +134,19 @@
     <Resource Include="Resources\Figures\rook_dark.png" />
     <Resource Include="Resources\Figures\rook_white.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="TestBoard\BlackBishop.png" />
+    <Resource Include="TestBoard\BlackKing.png" />
+    <Resource Include="TestBoard\BlackKnight.png" />
+    <Resource Include="TestBoard\BlackPawn.png" />
+    <Resource Include="TestBoard\BlackQueen.png" />
+    <Resource Include="TestBoard\BlackTower.png" />
+    <Resource Include="TestBoard\WhiteBishop.png" />
+    <Resource Include="TestBoard\WhiteKing.png" />
+    <Resource Include="TestBoard\WhiteKnight.png" />
+    <Resource Include="TestBoard\WhitePawn.png" />
+    <Resource Include="TestBoard\WhiteQueen.png" />
+    <Resource Include="TestBoard\WhiteTower.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

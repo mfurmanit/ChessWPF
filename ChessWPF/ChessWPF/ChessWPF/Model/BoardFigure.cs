@@ -13,7 +13,23 @@ namespace ChessWPF.Model
         private string path;
         private FigureType type;
         private FigureColor color;
+        private string color2;
         private int tileIndex;
+        private int row;
+        private int column;
+
+        public string Color2
+        {
+            get
+            {
+                return color2;
+            }
+            set
+            {
+                color2 = value;
+                OnPropertyChanged("Color2");
+            }
+        }
 
         public string Path
         {
@@ -63,6 +79,32 @@ namespace ChessWPF.Model
             set
             {
                 tileIndex = value;
+                OnPropertyChanged("TileIndex");
+            }
+        }
+
+        public int Row
+        {
+            get
+            {
+                return row;
+            }
+            set
+            {
+                row = value;
+                OnPropertyChanged("TileIndex");
+            }
+        }
+
+        public int Column
+        {
+            get
+            {
+                return column;
+            }
+            set
+            {
+                column = value;
                 OnPropertyChanged("TileIndex");
             }
         }
