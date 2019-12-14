@@ -61,14 +61,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Converters\TilesToTileConverter.cs" />
     <Compile Include="MainWindowModel.cs" />
     <Compile Include="Model\BoardFigure.cs" />
     <Compile Include="Model\BoardTile.cs" />
     <Compile Include="Model\Constants\FigureColor.cs" />
     <Compile Include="Model\Constants\FigureType.cs" />
+    <Compile Include="Model\Position.cs" />
     <Compile Include="Utils\BindableBase.cs" />
     <Compile Include="Utils\RelayCommand.cs" />
+    <Compile Include="Utils\StaticResources.cs" />
     <Compile Include="ViewModel\BoardTileViewModel.cs" />
     <Compile Include="ViewModel\BoardViewModel.cs" />
     <Compile Include="View\Board.xaml.cs">

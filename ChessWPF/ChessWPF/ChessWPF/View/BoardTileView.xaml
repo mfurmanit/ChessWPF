@@ -4,17 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:local="clr-namespace:ChessWPF.View"
              mc:Ignorable="d" 
              d:DesignHeight="80" d:DesignWidth="80">
-	<Grid Background="{Binding Background}" >
-		<i:Interaction.Triggers>
-			<i:EventTrigger EventName="MouseUp">
-				<i:InvokeCommandAction Command="{Binding ClickCommand}"/>
-			</i:EventTrigger>
-		</i:Interaction.Triggers>
-		<Border BorderBrush="{Binding Stroke}" BorderThickness="1">
-			<Image Source="{Binding ImageSource}"/>
-		</Border>
-	</Grid>
+
+    <Grid Background="{Binding Background}">
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="MouseUp">
+                <i:InvokeCommandAction Command="{Binding ClickCommand}"/>
+            </i:EventTrigger>
+            <i:EventTrigger EventName="MouseEnter">
+                <i:InvokeCommandAction Command="{Binding MouseEnterCommand}"/>
+            </i:EventTrigger>
+            <i:EventTrigger EventName="MouseLeave">
+                <i:InvokeCommandAction Command="{Binding MouseLeaveCommand}"/>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+        <Border BorderBrush="{Binding Stroke}" BorderThickness="{Binding StrokeThickness}">
+            <Image Source="{Binding ImageSource}"/>
+        </Border>
+    </Grid>
+
 </UserControl>

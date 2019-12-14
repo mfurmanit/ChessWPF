@@ -21,7 +21,6 @@ namespace ChessWPF {
         public MainWindow() {
 			InitializeComponent();
 			DataContext = new MainWindowModel();
-
         }
     }
 }

@@ -1,12 +1,8 @@
 ﻿using ChessWPF.Model;
 using ChessWPF.Model.Constants;
-using System;
+using ChessWPF.Utils;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using System.Windows.Media;
 
 namespace ChessWPF.ViewModel
 {
@@ -67,41 +63,100 @@ namespace ChessWPF.ViewModel
         {
             _TilesList = new List<BoardTileViewModel>();
 
-            var BLACK_TILE_COLOR = Brushes.LightSteelBlue;
-            var WHITE_TILE_COLOR = Brushes.White;
-            var BORDER_TILE_COLOR = Brushes.Black;
-
             int tilesCount = 64;
+            int row = 0;
+            int column = 0;
 
             for (int tileIndex = 0; tileIndex < tilesCount; tileIndex++)
             {
-				var figure = _FiguresList.FirstOrDefault(f => f.TileIndex == tileIndex);
-                BoardTileViewModel tile = new BoardTileViewModel(figure, tileIndex);
-				tile.Click += Tile_Click;
+                var position = new Position(column, row);
+                var figure = _FiguresList.FirstOrDefault(f => f.TileIndex == tileIndex);
+                BoardTileViewModel tile = new BoardTileViewModel(figure, tileIndex, position);
+                tile.Click += Tile_Click;
+                tile.MouseEnter += Tile_Enter;
+                tile.MouseLeave += Tile_Leave;
 
                 _TilesList.Add(tile);
+                if (column == 7)
+                {
+                    row++;
+                    column = 0;
+                } else
+                {
+                    column++;
+                }
             }
         }
 
-		private BoardTileViewModel selectedBoardTileViewModelWithFigure = null;
-		private void Tile_Click(BoardTileViewModel tileViewModel)
-		{
-			if (selectedBoardTileViewModelWithFigure != null)
-			{
-				var fig = selectedBoardTileViewModelWithFigure.Figure;
-				selectedBoardTileViewModelWithFigure.Figure = null;
-				selectedBoardTileViewModelWithFigure = null;
+        private BoardTileViewModel selectedTile = null;
+        private void Tile_Click(BoardTileViewModel eventCaller)
+        {
+            if (selectedTile != null && eventCaller.Position.Equals(ResolvePosition()))
+            {
+                var selectedFigure = selectedTile.Figure;
+                selectedTile.Figure = null;
+                selectedTile = null;
+                selectedFigure.TileIndex = eventCaller.Index;
+                eventCaller.Figure = selectedFigure;
+                SetBaseStyle(eventCaller);
+            } else if (eventCaller.Figure != null)
+            {
+                selectedTile = eventCaller;
+            }
+        }
 
-				fig.TileIndex = tileViewModel.Index;
-				tileViewModel.Figure = fig;
-			}
-			else if (tileViewModel.Figure != null)
-			{
-				selectedBoardTileViewModelWithFigure = tileViewModel;
-			}
-		}
+        private void Tile_Enter(BoardTileViewModel eventCaller)
+        {
+            if (selectedTile != null && ResolvePosition().Equals(eventCaller.Position))
+            {
+                SetEnabledStyle(eventCaller);
+            } else if (selectedTile != null && !ResolvePosition().Equals(eventCaller.Position))
+            {
+                SetDisabledStyle(eventCaller);
+            } else
+            {
+                SetBaseStyle(eventCaller);
+            }
+        }
 
-		public List<BoardFigure> BoardFigures
+        private void Tile_Leave(BoardTileViewModel eventCaller)
+        {
+            SetBaseStyle(eventCaller);
+        }
+
+        private void SetBaseStyle(BoardTileViewModel tile)
+        {
+            tile.Stroke = StaticResources.BORDER_TILE_COLOR;
+            tile.StrokeThickness = 1;
+        }
+
+        private void SetDisabledStyle(BoardTileViewModel tile)
+        {
+            tile.Stroke = StaticResources.BORDER_DISABLED_TILE_COLOR;
+            tile.StrokeThickness = 3;
+        }
+
+        private void SetEnabledStyle(BoardTileViewModel tile)
+        {
+            tile.Stroke = StaticResources.BORDER_ENABLED_TILE_COLOR;
+            tile.StrokeThickness = 3;
+        }
+
+        private Position ResolvePosition()
+        {
+            var position = selectedTile.Position;
+            var figure = selectedTile.Figure;
+            var figureColor = selectedTile.Figure.Color;
+            switch (figure.Type)
+            {
+                case FigureType.Pawn:
+                    return new Position(position.Column, (figureColor == FigureColor.Dark ? position.Row + 1 : position.Row - 1));
+                default:
+                    return position;
+            }
+        }
+
+        public List<BoardFigure> BoardFigures
         {
             get { return _FiguresList; }
             set { _FiguresList = value; }
@@ -113,38 +168,5 @@ namespace ChessWPF.ViewModel
             set { _TilesList = value; }
         }
 
-        private ICommand mUpdater;
-        public ICommand UpdateCommand
-        {
-            get
-            {
-                if (mUpdater == null)
-                    mUpdater = new Updater();
-                return mUpdater;
-            }
-            set
-            {
-                mUpdater = value;
-            }
-        }
-
-        private class Updater : ICommand
-        {
-            #region ICommand Members  
-
-            public bool CanExecute(object parameter)
-            {
-                return true;
-            }
-
-            public event EventHandler CanExecuteChanged;
-
-            public void Execute(object parameter)
-            {
-
-            }
-
-            #endregion
-        }
     }
 }
