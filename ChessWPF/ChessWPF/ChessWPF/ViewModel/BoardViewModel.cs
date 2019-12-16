@@ -3,6 +3,7 @@ using ChessWPF.Model.Constants;
 using ChessWPF.Utils;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 namespace ChessWPF.ViewModel
 {
@@ -91,9 +92,10 @@ namespace ChessWPF.ViewModel
         private BoardTileViewModel selectedTile = null;
         private void Tile_Click(BoardTileViewModel eventCaller)
         {
-            if (selectedTile != null && eventCaller.Position.Equals(ResolvePosition()))
+            if (selectedTile != null && eventCaller.Position.Equals(ResolvePosition(eventCaller)))
             {
                 var selectedFigure = selectedTile.Figure;
+                SetBaseStyle(selectedTile);
                 selectedTile.Figure = null;
                 selectedTile = null;
                 selectedFigure.TileIndex = eventCaller.Index;
@@ -102,26 +104,44 @@ namespace ChessWPF.ViewModel
             } else if (eventCaller.Figure != null)
             {
                 selectedTile = eventCaller;
+                CheckSelectedStyle(eventCaller);
             }
         }
 
         private void Tile_Enter(BoardTileViewModel eventCaller)
         {
-            if (selectedTile != null && ResolvePosition().Equals(eventCaller.Position))
+            if (selectedTile != null && eventCaller.Position.Equals(ResolvePosition(eventCaller)))
             {
                 SetEnabledStyle(eventCaller);
-            } else if (selectedTile != null && !ResolvePosition().Equals(eventCaller.Position))
+            } else if (selectedTile != null && !eventCaller.Position.Equals(ResolvePosition(eventCaller)))
             {
                 SetDisabledStyle(eventCaller);
             } else
             {
                 SetBaseStyle(eventCaller);
             }
+
+            CheckSelectedStyle(eventCaller);
         }
 
         private void Tile_Leave(BoardTileViewModel eventCaller)
         {
             SetBaseStyle(eventCaller);
+            CheckSelectedStyle(eventCaller);
+        }
+
+        private void CheckSelectedStyle(BoardTileViewModel tile)
+        {
+            if (selectedTile != null && selectedTile.Figure != null && selectedTile.Equals(tile))
+            {
+                SetSelectedStyle(tile);
+            }
+        }
+
+        private void SetSelectedStyle(BoardTileViewModel tile)
+        {
+            tile.Stroke = StaticResources.BORDER_SELECTED_TILE_COLOR;
+            tile.StrokeThickness = 3;
         }
 
         private void SetBaseStyle(BoardTileViewModel tile)
@@ -142,7 +162,7 @@ namespace ChessWPF.ViewModel
             tile.StrokeThickness = 3;
         }
 
-        private Position ResolvePosition()
+        private Position ResolvePosition(BoardTileViewModel wanted)
         {
             var position = selectedTile.Position;
             var figure = selectedTile.Figure;
@@ -151,9 +171,45 @@ namespace ChessWPF.ViewModel
             {
                 case FigureType.Pawn:
                     return new Position(position.Column, (figureColor == FigureColor.Dark ? position.Row + 1 : position.Row - 1));
+                case FigureType.King:
+                    return ResolveKingPosition(wanted);
                 default:
                     return position;
             }
+        }
+
+        private Position ResolvePawnPosition()
+        {
+            var position = selectedTile.Position;
+            var figure = selectedTile.Figure;
+            var figureColor = selectedTile.Figure.Color;
+            return new Position(position.Column, (figureColor == FigureColor.Dark ? position.Row + 1 : position.Row - 1));
+        }
+
+        private Position ResolveKingPosition(BoardTileViewModel caller) {
+
+            int[] x = { -1, -1, -1, 1, 1, 1, 0, 0 };
+            int[] y = { -1, 0, 1, -1, 0, 1, -1, 1 };
+            var selectedColumn = selectedTile.Position.Column;
+            var selectedRow = selectedTile.Position.Row;
+
+            List<Position> possiblePositions = new List<Position>();
+
+            for (int iterator = 0; iterator < 8; iterator++)
+            {
+                Position position = new Position(selectedColumn + y[iterator], selectedRow + x[iterator]);
+                if (IsPossibleToMove(caller, position)) {
+                    possiblePositions.Add(position);
+                }
+            }
+
+            return possiblePositions.Contains(caller.Position) ? caller.Position : null;
+        }
+
+        private bool IsPossibleToMove(BoardTileViewModel caller, Position newPosition) {
+            bool isWithinBoard = newPosition.Column > 0 && newPosition.Column <= 7 && newPosition.Row > 0 && newPosition.Row <= 7;
+            bool isAlly = caller.Figure == null ? false : caller.Figure.Color == selectedTile.Figure.Color;
+            return isWithinBoard && !isAlly;
         }
 
         public List<BoardFigure> BoardFigures

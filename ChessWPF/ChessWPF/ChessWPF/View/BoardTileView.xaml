@@ -20,7 +20,7 @@
             </i:EventTrigger>
         </i:Interaction.Triggers>
         <Border BorderBrush="{Binding Stroke}" BorderThickness="{Binding StrokeThickness}">
-            <Image Source="{Binding ImageSource}"/>
+            <Image Cursor="Hand" Source="{Binding ImageSource}"/>
         </Border>
     </Grid>
 

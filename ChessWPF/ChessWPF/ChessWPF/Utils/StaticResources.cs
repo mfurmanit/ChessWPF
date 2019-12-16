@@ -9,5 +9,6 @@ namespace ChessWPF.Utils
         public static SolidColorBrush BORDER_TILE_COLOR = Brushes.Black;
         public static SolidColorBrush BORDER_ENABLED_TILE_COLOR = Brushes.Green;
         public static SolidColorBrush BORDER_DISABLED_TILE_COLOR = Brushes.Red;
+        public static SolidColorBrush BORDER_SELECTED_TILE_COLOR = Brushes.Blue;
     }
 }
