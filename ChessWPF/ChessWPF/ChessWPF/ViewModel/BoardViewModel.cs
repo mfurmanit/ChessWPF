@@ -92,7 +92,7 @@ namespace ChessWPF.ViewModel
         private BoardTileViewModel selectedTile = null;
         private void Tile_Click(BoardTileViewModel eventCaller)
         {
-            if (selectedTile != null && eventCaller.Position.Equals(ResolvePosition(eventCaller)))
+            if (selectedTile != null && eventCaller.Position.Equals(ResolveFigurePosition(eventCaller)))
             {
                 var selectedFigure = selectedTile.Figure;
                 SetBaseStyle(selectedTile);
@@ -105,15 +105,16 @@ namespace ChessWPF.ViewModel
             {
                 selectedTile = eventCaller;
                 CheckSelectedStyle(eventCaller);
+                GeneratePossiblePositions(selectedTile.Figure);
             }
         }
 
         private void Tile_Enter(BoardTileViewModel eventCaller)
         {
-            if (selectedTile != null && eventCaller.Position.Equals(ResolvePosition(eventCaller)))
+            if (selectedTile != null && eventCaller.Position.Equals(ResolveFigurePosition(eventCaller)))
             {
                 SetEnabledStyle(eventCaller);
-            } else if (selectedTile != null && !eventCaller.Position.Equals(ResolvePosition(eventCaller)))
+            } else if (selectedTile != null && !eventCaller.Position.Equals(ResolveFigurePosition(eventCaller)))
             {
                 SetDisabledStyle(eventCaller);
             } else
@@ -162,54 +163,152 @@ namespace ChessWPF.ViewModel
             tile.StrokeThickness = 3;
         }
 
-        private Position ResolvePosition(BoardTileViewModel wanted)
-        {
-            var position = selectedTile.Position;
-            var figure = selectedTile.Figure;
-            var figureColor = selectedTile.Figure.Color;
-            switch (figure.Type)
+        private void GeneratePossiblePositions(BoardFigure boardFigure) {
+            switch (boardFigure.Type)
             {
                 case FigureType.Pawn:
-                    return new Position(position.Column, (figureColor == FigureColor.Dark ? position.Row + 1 : position.Row - 1));
+                    boardFigure.PossiblePositions = GeneratePossiblePawnPositions();
+                    break;
+                case FigureType.Rook:
+                    boardFigure.PossiblePositions = GeneratePossibleRookPositions();
+                    break;
+                case FigureType.Bishop:
+                    boardFigure.PossiblePositions = GeneratePossibleBishopPositions();
+                    break;
+                case FigureType.Queen:
+                    boardFigure.PossiblePositions = GeneratePossibleQueenPositions();
+                    break;
                 case FigureType.King:
-                    return ResolveKingPosition(wanted);
+                    boardFigure.PossiblePositions = GeneratePossibleKingPositions();
+                    break;
                 default:
-                    return position;
+                    break;
             }
         }
 
-        private Position ResolvePawnPosition()
+        private List<Position> GeneratePossiblePawnPositions()
         {
-            var position = selectedTile.Position;
-            var figure = selectedTile.Figure;
-            var figureColor = selectedTile.Figure.Color;
-            return new Position(position.Column, (figureColor == FigureColor.Dark ? position.Row + 1 : position.Row - 1));
+            List<Position> possiblePositions = new List<Position>();
+
+            var selectedTilePosition = selectedTile.Position;
+
+            Position whitePosition = new Position(selectedTilePosition.Column, selectedTilePosition.Row - 1);
+            Position darkPosition = new Position(selectedTilePosition.Column, selectedTilePosition.Row + 1);
+
+            possiblePositions.Add(whitePosition);
+            possiblePositions.Add(darkPosition);
+
+            return possiblePositions;
         }
 
-        private Position ResolveKingPosition(BoardTileViewModel caller) {
+        private List<Position> GeneratePossibleRookPositions()
+        {
+            List<Position> possiblePositions = new List<Position>();
+
+            var selectedColumn = selectedTile.Position.Column;
+            var selectedRow = selectedTile.Position.Row;
+
+            for (int iterator = 0; iterator < 8; iterator++)
+            {
+                Position positionUp = new Position(selectedColumn, selectedRow + iterator);
+                Position positionDown = new Position(selectedColumn, selectedRow - iterator);
+                Position positionLeft = new Position(selectedColumn - iterator, selectedRow);
+                Position positionRight = new Position(selectedColumn + iterator, selectedRow);
+
+                if (IsWithinBoard(positionUp))
+                    possiblePositions.Add(positionUp);
+
+                if (IsWithinBoard(positionDown))
+                    possiblePositions.Add(positionDown);
+
+                if (IsWithinBoard(positionLeft))
+                    possiblePositions.Add(positionLeft);
+
+                if (IsWithinBoard(positionRight))
+                    possiblePositions.Add(positionRight);
+            }
+
+            return possiblePositions;
+        }
+
+        private List<Position> GeneratePossibleBishopPositions()
+        {
+            List<Position> possiblePositions = new List<Position>();
+
+            var selectedColumn = selectedTile.Position.Column;
+            var selectedRow = selectedTile.Position.Row;
+
+            for (int iterator = 0; iterator < 8; iterator++)
+            {
+                Position positionRightUpDiagonal = new Position(selectedColumn + iterator, selectedRow + iterator);
+                Position positionLeftUpDiagonal = new Position(selectedColumn - iterator, selectedRow + iterator);
+                Position positionRightDownDiagonal = new Position(selectedColumn + iterator, selectedRow - iterator);
+                Position positionLeftDownDiagonal = new Position(selectedColumn - iterator, selectedRow - iterator);
+
+                if (IsWithinBoard(positionRightUpDiagonal))
+                    possiblePositions.Add(positionRightUpDiagonal);
+
+                if (IsWithinBoard(positionLeftUpDiagonal))
+                    possiblePositions.Add(positionLeftUpDiagonal);
+
+                if (IsWithinBoard(positionRightDownDiagonal))
+                    possiblePositions.Add(positionRightDownDiagonal);
+
+                if (IsWithinBoard(positionLeftDownDiagonal))
+                    possiblePositions.Add(positionLeftDownDiagonal);
+            }
+
+            return possiblePositions;
+        }
+
+        private List<Position> GeneratePossibleQueenPositions()
+        {
+            List<Position> possiblePositions = new List<Position>();
+
+            possiblePositions.AddRange(GeneratePossibleRookPositions());
+            possiblePositions.AddRange(GeneratePossibleBishopPositions());
+
+            return possiblePositions;
+        }
+
+        private List<Position> GeneratePossibleKingPositions()
+        {
+            List<Position> possiblePositions = new List<Position>();
 
             int[] x = { -1, -1, -1, 1, 1, 1, 0, 0 };
             int[] y = { -1, 0, 1, -1, 0, 1, -1, 1 };
             var selectedColumn = selectedTile.Position.Column;
             var selectedRow = selectedTile.Position.Row;
 
-            List<Position> possiblePositions = new List<Position>();
-
             for (int iterator = 0; iterator < 8; iterator++)
             {
                 Position position = new Position(selectedColumn + y[iterator], selectedRow + x[iterator]);
-                if (IsPossibleToMove(caller, position)) {
+                if (IsWithinBoard(position))
                     possiblePositions.Add(position);
-                }
             }
 
-            return possiblePositions.Contains(caller.Position) ? caller.Position : null;
+            return possiblePositions;
+        }
+
+        private Position ResolveFigurePosition(BoardTileViewModel caller)
+        {
+            return selectedTile.Figure.PossiblePositions.Contains(caller.Position) && IsPossibleToMove(caller, caller.Position) ? caller.Position : null;
         }
 
         private bool IsPossibleToMove(BoardTileViewModel caller, Position newPosition) {
-            bool isWithinBoard = newPosition.Column > 0 && newPosition.Column <= 7 && newPosition.Row > 0 && newPosition.Row <= 7;
-            bool isAlly = caller.Figure == null ? false : caller.Figure.Color == selectedTile.Figure.Color;
+            bool isWithinBoard = IsWithinBoard(newPosition);
+            bool isAlly = IsAlly(caller);
             return isWithinBoard && !isAlly;
+        }
+
+        private bool IsWithinBoard(Position position)
+        {
+            return position.Column >= 0 && position.Column <= 7 && position.Row >= 0 && position.Row <= 7; ;
+        }
+
+        private bool IsAlly(BoardTileViewModel caller)
+        {
+            return caller.Figure == null ? false : caller.Figure.Color == selectedTile.Figure.Color;
         }
 
         public List<BoardFigure> BoardFigures
