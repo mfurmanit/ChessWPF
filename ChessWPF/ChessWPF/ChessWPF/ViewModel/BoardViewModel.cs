@@ -1,6 +1,7 @@
 ﻿using ChessWPF.Model;
 using ChessWPF.Model.Constants;
 using ChessWPF.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -167,7 +168,7 @@ namespace ChessWPF.ViewModel
             switch (boardFigure.Type)
             {
                 case FigureType.Pawn:
-                    boardFigure.PossiblePositions = GeneratePossiblePawnPositions();
+                    boardFigure.PossiblePositions = GeneratePossiblePawnPositions(boardFigure);
                     break;
                 case FigureType.Rook:
                     boardFigure.PossiblePositions = GeneratePossibleRookPositions();
@@ -181,22 +182,54 @@ namespace ChessWPF.ViewModel
                 case FigureType.King:
                     boardFigure.PossiblePositions = GeneratePossibleKingPositions();
                     break;
+				case FigureType.Knight:
+					boardFigure.PossiblePositions = GeneratePossibleKnightPositions();
+					break;
                 default:
                     break;
             }
         }
 
-        private List<Position> GeneratePossiblePawnPositions()
+		private List<Position> GeneratePossibleKnightPositions()
+		{
+			List<Position> possiblePositions = new List<Position>();
+			var selectedTilePosition = selectedTile.Position;
+
+			int[] x = { -1, -1, 1, 1, 2, 2, -2, -2 };
+			int[] y = { 2, -2, 2, -2, 1, -1, 1, -1 };
+			var selectedColumn = selectedTile.Position.Column;
+			var selectedRow = selectedTile.Position.Row;
+
+			for (int iterator = 0; iterator < 8; iterator++)
+			{
+				Position position = new Position(selectedColumn + y[iterator], selectedRow + x[iterator]);
+				if (IsWithinBoard(position))
+					possiblePositions.Add(position);
+			}
+
+			return possiblePositions;
+		}
+
+		private List<Position> GeneratePossiblePawnPositions(BoardFigure boardFigure)
         {
             List<Position> possiblePositions = new List<Position>();
 
             var selectedTilePosition = selectedTile.Position;
 
-            Position whitePosition = new Position(selectedTilePosition.Column, selectedTilePosition.Row - 1);
-            Position darkPosition = new Position(selectedTilePosition.Column, selectedTilePosition.Row + 1);
+			if (boardFigure.Color == FigureColor.White)
+			{
+				possiblePositions.Add(new Position(selectedTilePosition.Column, System.Math.Max(0, selectedTilePosition.Row - 1)));
+				if(selectedTilePosition.Row == 6)
+					possiblePositions.Add(new Position(selectedTilePosition.Column, System.Math.Max(0, selectedTilePosition.Row - 2)));
 
-            possiblePositions.Add(whitePosition);
-            possiblePositions.Add(darkPosition);
+
+			}
+			else
+			{
+				possiblePositions.Add(new Position(selectedTilePosition.Column, System.Math.Min(7, selectedTilePosition.Row + 1)));
+				if (selectedTilePosition.Row == 1)
+					possiblePositions.Add(new Position(selectedTilePosition.Column, System.Math.Max(0, selectedTilePosition.Row + 2)));
+			}
 
             return possiblePositions;
         }
