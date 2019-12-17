@@ -7,7 +7,7 @@ using System.Windows.Media.Imaging;
 
 namespace ChessWPF.ViewModel
 {
-    class BoardTileViewModel : Utils.BindableBase
+    class BoardTileViewModel : Utils.BindableBase, IEquatable<BoardTileViewModel>
     {
         private int index;
         private SolidColorBrush background;
@@ -64,6 +64,11 @@ namespace ChessWPF.ViewModel
         private void OnMouseLeave()
         {
             MouseLeave(this);
+        }
+
+        public bool Equals(BoardTileViewModel other)
+        {
+            return this.Index == other.Index && this.Position == other.Position;
         }
 
         public int Index

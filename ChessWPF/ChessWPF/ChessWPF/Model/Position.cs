@@ -26,7 +26,7 @@ namespace ChessWPF.Model
 
         public bool Equals(Position other)
         {
-            return this.column == other.Column && this.row == other.Row;
+            return other == null ? false : this.column == other.Column && this.row == other.Row;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ChessWPF.Model.Constants;
+using System.Collections.Generic;
 
 namespace ChessWPF.Model
 {
@@ -8,6 +9,7 @@ namespace ChessWPF.Model
 		private FigureType type;
 		private FigureColor color;
 		private int tileIndex;
+		private List<Position> possiblePositions = new List<Position>();
 
 		public string Path
 		{
@@ -32,5 +34,11 @@ namespace ChessWPF.Model
 			get => tileIndex;
 			set => SetProperty(ref tileIndex, value);
 		}
-	}
+
+        public List<Position> PossiblePositions
+        {
+            get => possiblePositions;
+            set => SetProperty(ref possiblePositions, value);
+        }
+    }
 }
