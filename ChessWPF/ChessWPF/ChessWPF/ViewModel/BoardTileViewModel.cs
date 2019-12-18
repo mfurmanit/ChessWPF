@@ -7,7 +7,7 @@ using System.Windows.Media.Imaging;
 
 namespace ChessWPF.ViewModel
 {
-    class BoardTileViewModel : Utils.BindableBase, IEquatable<BoardTileViewModel>
+    public class BoardTileViewModel : Utils.BindableBase, IEquatable<BoardTileViewModel>
     {
         private int index;
         private SolidColorBrush background;

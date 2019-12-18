@@ -2,7 +2,7 @@
 
 namespace ChessWPF.Model
 {
-	class BoardTile : Utils.BindableBase
+    public class BoardTile : Utils.BindableBase
 	{
 		private int index;
 		private SolidColorBrush background;

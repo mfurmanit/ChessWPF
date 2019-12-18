@@ -3,14 +3,27 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:controls="clr-namespace:ChessWPF.Views"
+        xmlns:controls="clr-namespace:ChessWPF.View"
+        xmlns:controls2="clr-namespace:ChessWPF.Views"
         mc:Ignorable="d"
         ResizeMode="NoResize"
         Title="ChessWPF"
-        Width="750"
+        Width="1000"
         Height="750"
         Icon="Resources/Figures/rook_dark.png">
 	<Grid>
-		<controls:Board DataContext="{Binding BoardViewModel}"/>
-	</Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="750"></ColumnDefinition>
+            <ColumnDefinition Width="250"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <DockPanel Grid.Column="0">
+            <controls2:Board DataContext="{Binding BoardViewModel}"/>
+        </DockPanel>
+
+        <DockPanel Grid.Column="1">
+            <controls:GameInfo DataContext="{Binding GameViewModel}" />
+        </DockPanel>
+
+    </Grid>
 </Window>

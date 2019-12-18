@@ -7,9 +7,10 @@ using ChessWPF.ViewModel;
 
 namespace ChessWPF
 {
-	class MainWindowModel : Utils.BindableBase
+	public class MainWindowModel : Utils.BindableBase
 	{
 		private BoardViewModel boardViewModel = new BoardViewModel();
+		private GameViewModel gameViewModel = new GameViewModel();
 
 		public BoardViewModel BoardViewModel
 		{
@@ -17,5 +18,11 @@ namespace ChessWPF
 			set => SetProperty(ref boardViewModel, value);
 		}
 
-	}
+        public GameViewModel GameViewModel
+        {
+            get => gameViewModel;
+            set => SetProperty(ref gameViewModel, value);
+        }
+
+    }
 }

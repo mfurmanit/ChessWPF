@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace ChessWPF.Utils
 {
-	class BindableBase : INotifyPropertyChanged
+	public class BindableBase : INotifyPropertyChanged
 	{
 		protected virtual void SetProperty<T>(ref T member, T value, [CallerMemberName] string propertyName = null)
 		{

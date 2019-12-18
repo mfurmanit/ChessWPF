@@ -2,7 +2,7 @@
 
 namespace ChessWPF.Model
 {
-    class Position : Utils.BindableBase, IEquatable<Position>
+    public class Position : Utils.BindableBase, IEquatable<Position>
     {
         private int column;
         private int row;

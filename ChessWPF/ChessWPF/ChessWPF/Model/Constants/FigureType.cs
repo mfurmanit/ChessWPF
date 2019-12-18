@@ -1,6 +1,6 @@
 ﻿namespace ChessWPF.Model.Constants
 {
-    enum FigureType
+    public enum FigureType
     {
         Pawn, Knight, Bishop, Queen, King, Rook
     }
