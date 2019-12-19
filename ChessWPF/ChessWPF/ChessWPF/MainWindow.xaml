@@ -5,25 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="clr-namespace:ChessWPF.View"
         xmlns:controls2="clr-namespace:ChessWPF.Views"
+		xmlns:conv="clr-namespace:ChessWPF.Converters"
         mc:Ignorable="d"
         ResizeMode="NoResize"
         Title="ChessWPF"
         Width="1000"
         Height="750"
         Icon="Resources/Figures/rook_dark.png">
+
+	<Window.Resources>
+		<conv:BoolToVisibilityConverter x:Key="VisConv" TrueValue="Visible" FalseValue="Collapsed" />
+		<conv:BoolToVisibilityConverter x:Key="NegVisConv" TrueValue="Collapsed" FalseValue="Visible" />
+	</Window.Resources>
+
 	<Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="750"></ColumnDefinition>
-            <ColumnDefinition Width="250"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
+		<Border Visibility="{Binding ShowStartView, Converter={StaticResource VisConv}}">
+			<controls:StartView DataContext="{Binding StartViewModel}" 
+								HorizontalAlignment="Center" 
+								VerticalAlignment="Center"
+								Width="500" Height="400"/>
+		</Border>
 
-        <DockPanel Grid.Column="0">
-            <controls2:Board DataContext="{Binding BoardViewModel}"/>
-        </DockPanel>
+		<Grid Visibility="{Binding ShowStartView, Converter={StaticResource NegVisConv}}">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="750"></ColumnDefinition>
+				<ColumnDefinition Width="250"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
 
-        <DockPanel Grid.Column="1">
-            <controls:GameInfo DataContext="{Binding GameViewModel}" />
-        </DockPanel>
 
-    </Grid>
+			<DockPanel Grid.Column="0">
+				<controls2:Board DataContext="{Binding BoardViewModel}"/>
+			</DockPanel>
+
+			<DockPanel Grid.Column="1">
+				<controls:GameInfo DataContext="{Binding GameViewModel}" />
+			</DockPanel>
+
+		</Grid>
+	</Grid>
 </Window>
