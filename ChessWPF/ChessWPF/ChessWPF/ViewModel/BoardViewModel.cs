@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace ChessWPF.ViewModel
 {
-    class BoardViewModel
+    public class BoardViewModel
     {
         private List<BoardFigure> _FiguresList;
         private List<BoardTileViewModel> _TilesList;

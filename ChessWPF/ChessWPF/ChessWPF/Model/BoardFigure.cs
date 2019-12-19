@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ChessWPF.Model
 {
-	class BoardFigure : Utils.BindableBase
+	public class BoardFigure : Utils.BindableBase
 	{
 		private string path;
 		private FigureType type;

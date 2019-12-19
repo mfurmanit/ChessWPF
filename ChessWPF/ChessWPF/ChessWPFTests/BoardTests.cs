@@ -10,6 +10,7 @@ namespace ChessWPFTests
         public void Create_ChessBoard_Success()
         {
             //Arrange
+            BoardViewModel model = new BoardViewModel();
             //Act
             //Assert
         }
