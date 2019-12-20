@@ -11,6 +11,20 @@ namespace ChessWPF
 	{
 		private BoardViewModel boardViewModel = new BoardViewModel();
 		private GameViewModel gameViewModel = new GameViewModel();
+		private StartViewModel startViewModel = new StartViewModel();
+		private bool showStartView = true;
+
+		public MainWindowModel()
+		{
+			startViewModel.Click += StartViewModel_Start;
+		}
+
+		private void StartViewModel_Start()
+		{
+			gameViewModel.FirstPlayer = startViewModel.WhitePlayer;
+			gameViewModel.SecondPlayer = startViewModel.DarkPlayer;
+			ShowStartView = false;
+		}
 
 		public BoardViewModel BoardViewModel
 		{
@@ -24,5 +38,17 @@ namespace ChessWPF
             set => SetProperty(ref gameViewModel, value);
         }
 
-    }
+		public StartViewModel StartViewModel
+		{
+			get => startViewModel;
+			set => SetProperty(ref startViewModel, value);
+		}
+
+		public bool ShowStartView
+		{
+			get => showStartView;
+			set => SetProperty(ref showStartView, value);
+		}
+
+	}
 }
