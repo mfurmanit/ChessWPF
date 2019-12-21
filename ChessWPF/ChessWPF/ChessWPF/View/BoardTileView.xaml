@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="80" d:DesignWidth="80">
 
-    <Grid Background="{Binding Background}">
+    <Grid Cursor="{Binding Cursor}" Background="{Binding Background}">
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="MouseUp">
                 <i:InvokeCommandAction Command="{Binding ClickCommand}"/>
@@ -20,7 +20,7 @@
             </i:EventTrigger>
         </i:Interaction.Triggers>
         <Border BorderBrush="{Binding Stroke}" BorderThickness="{Binding StrokeThickness}">
-            <Image Cursor="Hand" Source="{Binding ImageSource}"/>
+            <Image Source="{Binding ImageSource}"/>
         </Border>
     </Grid>
 

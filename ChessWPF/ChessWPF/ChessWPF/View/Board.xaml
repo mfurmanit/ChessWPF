@@ -6,7 +6,7 @@
     <ItemsControl ItemsSource="{Binding BoardTiles}">
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
-                <Grid x:Name="RootGrid" Margin="10">
+                <Grid x:Name="RootGrid" Margin="10,10,0,10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>

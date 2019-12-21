@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 
 namespace ChessWPF.ViewModel
 {
@@ -17,6 +18,7 @@ namespace ChessWPF.ViewModel
         {
             InitializeFiguresList();
             GenerateTilesList();
+            Mediator.Register("ChangePlayer", ChangePlayer);
         }
 
         private void InitializeFiguresList()
@@ -91,6 +93,7 @@ namespace ChessWPF.ViewModel
         }
 
         private BoardTileViewModel selectedTile = null;
+        private FigureColor actualPlayerColor = FigureColor.White;
         private void Tile_Click(BoardTileViewModel eventCaller)
         {
             if (selectedTile != null && eventCaller.Position.Equals(ResolveFigurePosition(eventCaller)))
@@ -102,7 +105,8 @@ namespace ChessWPF.ViewModel
                 selectedFigure.TileIndex = eventCaller.Index;
                 eventCaller.Figure = selectedFigure;
                 SetBaseStyle(eventCaller);
-            } else if (eventCaller.Figure != null)
+                Mediator.NotifyColleagues("ChangePlayer", actualPlayerColor);
+            } else if (eventCaller.Figure != null && eventCaller.Figure.Color.Equals(actualPlayerColor))
             {
                 selectedTile = eventCaller;
                 CheckSelectedStyle(eventCaller);
@@ -112,7 +116,9 @@ namespace ChessWPF.ViewModel
 
         private void Tile_Enter(BoardTileViewModel eventCaller)
         {
-            if (selectedTile != null && eventCaller.Position.Equals(ResolveFigurePosition(eventCaller)))
+            if (eventCaller.Figure != null && eventCaller.Figure.Color == actualPlayerColor) {
+                SetSelectedStyle(eventCaller);
+            } else if (selectedTile != null && eventCaller.Position.Equals(ResolveFigurePosition(eventCaller)))
             {
                 SetEnabledStyle(eventCaller);
             } else if (selectedTile != null && !eventCaller.Position.Equals(ResolveFigurePosition(eventCaller)))
@@ -136,6 +142,7 @@ namespace ChessWPF.ViewModel
         {
             if (selectedTile != null && selectedTile.Figure != null && selectedTile.Equals(tile))
             {
+                BoardTiles.Where(boardTile => boardTile.Figure != null).ToList().ForEach(boardTile => SetBaseStyle(boardTile));
                 SetSelectedStyle(tile);
             }
         }
@@ -144,24 +151,28 @@ namespace ChessWPF.ViewModel
         {
             tile.Stroke = StaticResources.BORDER_SELECTED_TILE_COLOR;
             tile.StrokeThickness = 3;
+            tile.Cursor = Cursors.Hand;
         }
 
         private void SetBaseStyle(BoardTileViewModel tile)
         {
             tile.Stroke = StaticResources.BORDER_TILE_COLOR;
             tile.StrokeThickness = 1;
+            tile.Cursor = Cursors.Arrow;
         }
 
         private void SetDisabledStyle(BoardTileViewModel tile)
         {
             tile.Stroke = StaticResources.BORDER_DISABLED_TILE_COLOR;
             tile.StrokeThickness = 3;
+            tile.Cursor = Cursors.No;
         }
 
         private void SetEnabledStyle(BoardTileViewModel tile)
         {
             tile.Stroke = StaticResources.BORDER_ENABLED_TILE_COLOR;
             tile.StrokeThickness = 3;
+            tile.Cursor = Cursors.Hand;
         }
 
         private void GeneratePossiblePositions(BoardFigure boardFigure) {
@@ -342,6 +353,11 @@ namespace ChessWPF.ViewModel
         private bool IsAlly(BoardTileViewModel caller)
         {
             return caller.Figure == null ? false : caller.Figure.Color == selectedTile.Figure.Color;
+        }
+
+        public void ChangePlayer(object message)
+        {
+            actualPlayerColor = actualPlayerColor == FigureColor.Dark ? FigureColor.White : FigureColor.Dark;
         }
 
         public List<BoardFigure> BoardFigures
