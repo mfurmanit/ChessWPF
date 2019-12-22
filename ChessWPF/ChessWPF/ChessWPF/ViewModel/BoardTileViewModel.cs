@@ -12,6 +12,7 @@ namespace ChessWPF.ViewModel
         private int index;
         private SolidColorBrush background;
         private SolidColorBrush stroke;
+        private Cursor cursor = Cursors.Arrow;
         private int strokeThickness;
         private bool isActive;
         private BoardFigure figure;
@@ -87,6 +88,12 @@ namespace ChessWPF.ViewModel
         {
             get => stroke;
             set => SetProperty(ref stroke, value);
+        }
+
+        public Cursor Cursor
+        {
+            get => cursor;
+            set => SetProperty(ref cursor, value);
         }
 
         public int StrokeThickness
