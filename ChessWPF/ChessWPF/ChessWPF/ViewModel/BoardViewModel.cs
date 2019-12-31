@@ -9,105 +9,106 @@ using System.Windows.Input;
 
 namespace ChessWPF.ViewModel
 {
-    public class BoardViewModel
-    {
-        private List<BoardFigure> _FiguresList;
-        private List<BoardFigure> _FiguresListOutOfBoard;
-        private List<BoardTileViewModel> _TilesList;
+	public class BoardViewModel
+	{
+		private List<BoardFigure> _FiguresList;
+		private List<BoardFigure> _FiguresListOutOfBoard;
+		private List<BoardTileViewModel> _TilesList;
 
-        public BoardViewModel()
-        {
-            InitializeFiguresList();
-            GenerateTilesList();
-            Mediator.Register("ChangePlayer", ChangePlayer);
-        }
+		public BoardViewModel()
+		{
+			InitializeFiguresList();
+			GenerateTilesList();
+			Mediator.Register("ChangePlayer", ChangePlayer);
+		}
 
-        private void InitializeFiguresList()
-        {
-            _FiguresList = new List<BoardFigure>
-            {
+		private void InitializeFiguresList()
+		{
+			_FiguresList = new List<BoardFigure>
+			{
                 // Dark figures
                 new BoardFigure(FigureType.Rook, FigureColor.Dark, new Position("A8")),
-                new BoardFigure(FigureType.Knight, FigureColor.Dark, new Position("B8")),
-                new BoardFigure(FigureType.Bishop, FigureColor.Dark, new Position("C8")),
-                new BoardFigure(FigureType.Queen, FigureColor.Dark, new Position("D8")),
-                new BoardFigure(FigureType.King, FigureColor.Dark, new Position("E8")),
-                new BoardFigure(FigureType.Bishop, FigureColor.Dark, new Position("F8")),
-                new BoardFigure(FigureType.Knight, FigureColor.Dark, new Position("G8")),
-                new BoardFigure(FigureType.Rook, FigureColor.Dark, new Position("H8")),
-                new BoardFigure(FigureType.Pawn, FigureColor.Dark, new Position("A7")),
-                new BoardFigure(FigureType.Pawn, FigureColor.Dark, new Position("B7")),
-                new BoardFigure(FigureType.Pawn, FigureColor.Dark, new Position("C7")),
-                new BoardFigure(FigureType.Pawn, FigureColor.Dark, new Position("D7")),
-                new BoardFigure(FigureType.Pawn, FigureColor.Dark, new Position("E7")),
-                new BoardFigure(FigureType.Pawn, FigureColor.Dark, new Position("F7")),
-                new BoardFigure(FigureType.Pawn, FigureColor.Dark, new Position("G7")),
-                new BoardFigure(FigureType.Pawn, FigureColor.Dark, new Position("H7")),
+				new BoardFigure(FigureType.Knight, FigureColor.Dark, new Position("B8")),
+				new BoardFigure(FigureType.Bishop, FigureColor.Dark, new Position("C8")),
+				new BoardFigure(FigureType.Queen, FigureColor.Dark, new Position("D8")),
+				new BoardFigure(FigureType.King, FigureColor.Dark, new Position("E8")),
+				new BoardFigure(FigureType.Bishop, FigureColor.Dark, new Position("F8")),
+				new BoardFigure(FigureType.Knight, FigureColor.Dark, new Position("G8")),
+				new BoardFigure(FigureType.Rook, FigureColor.Dark, new Position("H8")),
+				new BoardFigure(FigureType.Pawn, FigureColor.Dark, new Position("A7")),
+				new BoardFigure(FigureType.Pawn, FigureColor.Dark, new Position("B7")),
+				new BoardFigure(FigureType.Pawn, FigureColor.Dark, new Position("C7")),
+				new BoardFigure(FigureType.Pawn, FigureColor.Dark, new Position("D7")),
+				new BoardFigure(FigureType.Pawn, FigureColor.Dark, new Position("E7")),
+				new BoardFigure(FigureType.Pawn, FigureColor.Dark, new Position("F7")),
+				new BoardFigure(FigureType.Pawn, FigureColor.Dark, new Position("G7")),
+				new BoardFigure(FigureType.Pawn, FigureColor.Dark, new Position("H7")),
 				                // White figures
                 new BoardFigure(FigureType.Pawn, FigureColor.White, new Position("A2")),
-                new BoardFigure(FigureType.Pawn, FigureColor.White, new Position("B2")),
-                new BoardFigure(FigureType.Pawn, FigureColor.White, new Position("C2")),
-                new BoardFigure(FigureType.Pawn, FigureColor.White, new Position("D2")),
-                new BoardFigure(FigureType.Pawn, FigureColor.White, new Position("E2")),
-                new BoardFigure(FigureType.Pawn, FigureColor.White, new Position("F2")),
-                new BoardFigure(FigureType.Pawn, FigureColor.White, new Position("G2")),
-                new BoardFigure(FigureType.Pawn, FigureColor.White, new Position("H2")),
-                new BoardFigure(FigureType.Rook, FigureColor.White, new Position("A1")),
-                new BoardFigure(FigureType.Knight, FigureColor.White, new Position("B1")),
-                new BoardFigure(FigureType.Bishop, FigureColor.White, new Position("C1")),
-                new BoardFigure(FigureType.Queen, FigureColor.White, new Position("D1")),
-                new BoardFigure(FigureType.King, FigureColor.White, new Position("E1")),
-                new BoardFigure(FigureType.Bishop, FigureColor.White, new Position("F1")),
-                new BoardFigure(FigureType.Knight, FigureColor.White, new Position("G1")),
-                new BoardFigure(FigureType.Rook, FigureColor.White, new Position("H1"))
-            };
+				new BoardFigure(FigureType.Pawn, FigureColor.White, new Position("B2")),
+				new BoardFigure(FigureType.Pawn, FigureColor.White, new Position("C2")),
+				new BoardFigure(FigureType.Pawn, FigureColor.White, new Position("D2")),
+				new BoardFigure(FigureType.Pawn, FigureColor.White, new Position("E2")),
+				new BoardFigure(FigureType.Pawn, FigureColor.White, new Position("F2")),
+				new BoardFigure(FigureType.Pawn, FigureColor.White, new Position("G2")),
+				new BoardFigure(FigureType.Pawn, FigureColor.White, new Position("H2")),
+				new BoardFigure(FigureType.Rook, FigureColor.White, new Position("A1")),
+				new BoardFigure(FigureType.Knight, FigureColor.White, new Position("B1")),
+				new BoardFigure(FigureType.Bishop, FigureColor.White, new Position("C1")),
+				new BoardFigure(FigureType.Queen, FigureColor.White, new Position("D1")),
+				new BoardFigure(FigureType.King, FigureColor.White, new Position("E1")),
+				new BoardFigure(FigureType.Bishop, FigureColor.White, new Position("F1")),
+				new BoardFigure(FigureType.Knight, FigureColor.White, new Position("G1")),
+				new BoardFigure(FigureType.Rook, FigureColor.White, new Position("H1"))
+			};
 			_FiguresListOutOfBoard = new List<BoardFigure>();
-        }
+		}
 
-        private void GenerateTilesList()
-        {
-            _TilesList = new List<BoardTileViewModel>();
+		private void GenerateTilesList()
+		{
+			_TilesList = new List<BoardTileViewModel>();
 
-            int tilesCount = 64;
-            int row = 0;
-            int column = 0;
+			int tilesCount = 64;
+			int row = 0;
+			int column = 0;
 
-            for (int tileIndex = 0; tileIndex < tilesCount; tileIndex++)
-            {
-                var position = new Position(column, row);
-                var figure = _FiguresList.FirstOrDefault(f => f.TileIndex == tileIndex);
-                BoardTileViewModel tile = new BoardTileViewModel(figure, tileIndex, position);
-                tile.Click += Tile_Click;
-                tile.MouseEnter += Tile_Enter;
-                tile.MouseLeave += Tile_Leave;
+			for (int tileIndex = 0; tileIndex < tilesCount; tileIndex++)
+			{
+				var position = new Position(column, row);
+				var figure = _FiguresList.FirstOrDefault(f => f.TileIndex == tileIndex);
+				BoardTileViewModel tile = new BoardTileViewModel(figure, tileIndex, position);
+				tile.Click += Tile_Click;
+				tile.MouseEnter += Tile_Enter;
+				tile.MouseLeave += Tile_Leave;
 
-                _TilesList.Add(tile);
-                if (column == 7)
-                {
-                    row++;
-                    column = 0;
-                } else
-                {
-                    column++;
-                }
-            }
-        }
+				_TilesList.Add(tile);
+				if (column == 7)
+				{
+					row++;
+					column = 0;
+				}
+				else
+				{
+					column++;
+				}
+			}
+		}
 
-        private BoardTileViewModel selectedTile = null;
-        private FigureColor actualPlayerColor = FigureColor.White;
-        private void Tile_Click(BoardTileViewModel eventCaller)
-        {
-            if (selectedTile != null && eventCaller.Position.Equals(ResolveFigurePosition(eventCaller)))
-            {
+		private BoardTileViewModel selectedTile = null;
+		private FigureColor actualPlayerColor = FigureColor.White;
+		private void Tile_Click(BoardTileViewModel eventCaller)
+		{
+			if (selectedTile != null && eventCaller.Position.Equals(ResolveFigurePosition(eventCaller)))
+			{
 				var oldFigure = eventCaller.Figure;
-                var selectedFigure = selectedTile.Figure;
-                SetBaseStyle(selectedTile);
-                selectedTile.Figure = null;
-                selectedTile = null;
-                selectedFigure.Position = eventCaller.Position;
-                eventCaller.Figure = selectedFigure;
-                SetBaseStyle(eventCaller);
-                Mediator.NotifyColleagues("ChangePlayer", actualPlayerColor);
+				var selectedFigure = selectedTile.Figure;
+				SetBaseStyle(selectedTile);
+				selectedTile.Figure = null;
+				selectedTile = null;
+				selectedFigure.Position = eventCaller.Position;
+				eventCaller.Figure = selectedFigure;
+				SetBaseStyle(eventCaller);
+				Mediator.NotifyColleagues("ChangePlayer", actualPlayerColor);
 
 				if (oldFigure != null)
 				{
@@ -115,105 +116,111 @@ namespace ChessWPF.ViewModel
 					oldFigure.Position = null;
 					OutOfBoardFigures.Add(oldFigure);
 				}
-            } else if (eventCaller.Figure != null && eventCaller.Figure.Color.Equals(actualPlayerColor))
-            {
-                selectedTile = eventCaller;
-                CheckSelectedStyle(eventCaller);
-                GeneratePossiblePositions(selectedTile.Figure);
-            }
-        }
+			}
+			else if (eventCaller.Figure != null && eventCaller.Figure.Color.Equals(actualPlayerColor))
+			{
+				selectedTile = eventCaller;
+				CheckSelectedStyle(eventCaller);
+				GeneratePossiblePositions(selectedTile.Figure);
+			}
+		}
 
-        private void Tile_Enter(BoardTileViewModel eventCaller)
-        {
-            if (eventCaller.Figure != null && eventCaller.Figure.Color == actualPlayerColor) {
-                SetSelectedStyle(eventCaller);
-            } else if (selectedTile != null && eventCaller.Position.Equals(ResolveFigurePosition(eventCaller)))
-            {
-                SetEnabledStyle(eventCaller);
-            } else if (selectedTile != null && !eventCaller.Position.Equals(ResolveFigurePosition(eventCaller)))
-            {
-                SetDisabledStyle(eventCaller);
-            } else
-            {
-                SetBaseStyle(eventCaller);
-            }
+		private void Tile_Enter(BoardTileViewModel eventCaller)
+		{
+			if (eventCaller.Figure != null && eventCaller.Figure.Color == actualPlayerColor)
+			{
+				SetSelectedStyle(eventCaller);
+			}
+			else if (selectedTile != null && eventCaller.Position.Equals(ResolveFigurePosition(eventCaller)))
+			{
+				SetEnabledStyle(eventCaller);
+			}
+			else if (selectedTile != null && !eventCaller.Position.Equals(ResolveFigurePosition(eventCaller)))
+			{
+				SetDisabledStyle(eventCaller);
+			}
+			else
+			{
+				SetBaseStyle(eventCaller);
+			}
 
-            CheckSelectedStyle(eventCaller);
-        }
+			CheckSelectedStyle(eventCaller);
+		}
 
-        private void Tile_Leave(BoardTileViewModel eventCaller)
-        {
-            SetBaseStyle(eventCaller);
-            CheckSelectedStyle(eventCaller);
-        }
+		private void Tile_Leave(BoardTileViewModel eventCaller)
+		{
+			SetBaseStyle(eventCaller);
+			CheckSelectedStyle(eventCaller);
+		}
 
-        private void CheckSelectedStyle(BoardTileViewModel tile)
-        {
-            if (selectedTile != null && selectedTile.Figure != null && selectedTile.Equals(tile))
-            {
-                BoardTiles.Where(boardTile => boardTile.Figure != null).ToList().ForEach(boardTile => SetBaseStyle(boardTile));
-                SetSelectedStyle(tile);
-            }
-        }
+		private void CheckSelectedStyle(BoardTileViewModel tile)
+		{
+			if (selectedTile != null && selectedTile.Figure != null && selectedTile.Equals(tile))
+			{
+				BoardTiles.Where(boardTile => boardTile.Figure != null).ToList().ForEach(boardTile => SetBaseStyle(boardTile));
+				SetSelectedStyle(tile);
+			}
+		}
 
-        private void SetSelectedStyle(BoardTileViewModel tile)
-        {
-            tile.Stroke = StaticResources.BORDER_SELECTED_TILE_COLOR;
-            tile.StrokeThickness = 3;
-            tile.Cursor = Cursors.Hand;
-        }
+		private void SetSelectedStyle(BoardTileViewModel tile)
+		{
+			tile.Stroke = StaticResources.BORDER_SELECTED_TILE_COLOR;
+			tile.StrokeThickness = 3;
+			tile.Cursor = Cursors.Hand;
+		}
 
-        private void SetBaseStyle(BoardTileViewModel tile)
-        {
-            tile.Stroke = StaticResources.BORDER_TILE_COLOR;
-            tile.StrokeThickness = 1;
-            tile.Cursor = Cursors.Arrow;
-        }
+		private void SetBaseStyle(BoardTileViewModel tile)
+		{
+			tile.Stroke = StaticResources.BORDER_TILE_COLOR;
+			tile.StrokeThickness = 1;
+			tile.Cursor = Cursors.Arrow;
+		}
 
-        private void SetDisabledStyle(BoardTileViewModel tile)
-        {
-            tile.Stroke = StaticResources.BORDER_DISABLED_TILE_COLOR;
-            tile.StrokeThickness = 3;
-            tile.Cursor = Cursors.No;
-        }
+		private void SetDisabledStyle(BoardTileViewModel tile)
+		{
+			tile.Stroke = StaticResources.BORDER_DISABLED_TILE_COLOR;
+			tile.StrokeThickness = 3;
+			tile.Cursor = Cursors.No;
+		}
 
-        private void SetEnabledStyle(BoardTileViewModel tile)
-        {
-            tile.Stroke = StaticResources.BORDER_ENABLED_TILE_COLOR;
-            tile.StrokeThickness = 3;
-            tile.Cursor = Cursors.Hand;
-        }
+		private void SetEnabledStyle(BoardTileViewModel tile)
+		{
+			tile.Stroke = StaticResources.BORDER_ENABLED_TILE_COLOR;
+			tile.StrokeThickness = 3;
+			tile.Cursor = Cursors.Hand;
+		}
 
 		private BoardFigure GetFigureFromPosition(Position position)
 		{
 			return _FiguresList.FirstOrDefault(f => f.Position == position);
 		}
 
-        private void GeneratePossiblePositions(BoardFigure boardFigure) {
-            switch (boardFigure.Type)
-            {
-                case FigureType.Pawn:
-                    boardFigure.PossiblePositions = GeneratePossiblePawnPositions(boardFigure);
-                    break;
-                case FigureType.Rook:
-                    boardFigure.PossiblePositions = GeneratePossibleRookPositions();
-                    break;
-                case FigureType.Bishop:
-                    boardFigure.PossiblePositions = GeneratePossibleBishopPositions();
-                    break;
-                case FigureType.Queen:
-                    boardFigure.PossiblePositions = GeneratePossibleQueenPositions();
-                    break;
-                case FigureType.King:
-                    boardFigure.PossiblePositions = GeneratePossibleKingPositions();
-                    break;
+		private void GeneratePossiblePositions(BoardFigure boardFigure)
+		{
+			switch (boardFigure.Type)
+			{
+				case FigureType.Pawn:
+					boardFigure.PossiblePositions = GeneratePossiblePawnPositions(boardFigure);
+					break;
+				case FigureType.Rook:
+					boardFigure.PossiblePositions = GeneratePossibleRookPositions();
+					break;
+				case FigureType.Bishop:
+					boardFigure.PossiblePositions = GeneratePossibleBishopPositions();
+					break;
+				case FigureType.Queen:
+					boardFigure.PossiblePositions = GeneratePossibleQueenPositions();
+					break;
+				case FigureType.King:
+					boardFigure.PossiblePositions = GeneratePossibleKingPositions();
+					break;
 				case FigureType.Knight:
 					boardFigure.PossiblePositions = GeneratePossibleKnightPositions();
 					break;
-                default:
-                    break;
-            }
-        }
+				default:
+					break;
+			}
+		}
 
 		private List<Position> GeneratePossibleKnightPositions()
 		{
@@ -236,15 +243,15 @@ namespace ChessWPF.ViewModel
 		}
 
 		private List<Position> GeneratePossiblePawnPositions(BoardFigure boardFigure)
-        {
-            List<Position> possiblePositions = new List<Position>();
+		{
+			List<Position> possiblePositions = new List<Position>();
 
-            var selectedTilePosition = selectedTile.Position;
+			var selectedTilePosition = selectedTile.Position;
 
 			if (boardFigure.Color == FigureColor.White)
 			{
 				var pos = new Position(selectedTilePosition.Column, selectedTilePosition.Row - 1);
-				if(IsWithinBoard(pos) && GetFigureFromPosition(pos) == null)
+				if (IsWithinBoard(pos) && GetFigureFromPosition(pos) == null)
 					possiblePositions.Add(pos);
 				if (selectedTilePosition.Row == 6)
 				{
@@ -282,27 +289,27 @@ namespace ChessWPF.ViewModel
 					possiblePositions.Add(pos);
 			}
 
-            return possiblePositions;
-        }
+			return possiblePositions;
+		}
 
-        private List<Position> GeneratePossibleRookPositions()
-        {
-            List<Position> possiblePositions = new List<Position>();
+		private List<Position> GeneratePossibleRookPositions()
+		{
+			List<Position> possiblePositions = new List<Position>();
 
-            var selectedColumn = selectedTile.Position.Column;
-            var selectedRow = selectedTile.Position.Row;
+			var selectedColumn = selectedTile.Position.Column;
+			var selectedRow = selectedTile.Position.Row;
 
 			bool addUp = true;
 			bool addLeft = true;
 			bool addRight = true;
 			bool addDown = true;
 
-            for (int iterator = 1; iterator < 8; iterator++)
-            {
-                Position positionUp = new Position(selectedColumn, selectedRow + iterator);
-                Position positionDown = new Position(selectedColumn, selectedRow - iterator);
-                Position positionLeft = new Position(selectedColumn - iterator, selectedRow);
-                Position positionRight = new Position(selectedColumn + iterator, selectedRow);
+			for (int iterator = 1; iterator < 8; iterator++)
+			{
+				Position positionUp = new Position(selectedColumn, selectedRow + iterator);
+				Position positionDown = new Position(selectedColumn, selectedRow - iterator);
+				Position positionLeft = new Position(selectedColumn - iterator, selectedRow);
+				Position positionRight = new Position(selectedColumn + iterator, selectedRow);
 
 				if (IsWithinBoard(positionUp) && addUp)
 				{
@@ -327,28 +334,28 @@ namespace ChessWPF.ViewModel
 					possiblePositions.Add(positionRight);
 					addRight = GetFigureFromPosition(positionRight) == null;
 				}
-            }
+			}
 
-            return possiblePositions;
-        }
+			return possiblePositions;
+		}
 
-        private List<Position> GeneratePossibleBishopPositions()
-        {
-            List<Position> possiblePositions = new List<Position>();
+		private List<Position> GeneratePossibleBishopPositions()
+		{
+			List<Position> possiblePositions = new List<Position>();
 
-            var selectedColumn = selectedTile.Position.Column;
-            var selectedRow = selectedTile.Position.Row;
+			var selectedColumn = selectedTile.Position.Column;
+			var selectedRow = selectedTile.Position.Row;
 			bool addRightUpDiagonal = true;
 			bool addLeftUpDiagonal = true;
 			bool addRightDownDiagonal = true;
 			bool addLeftDownDiagonal = true;
 
-            for (int iterator = 1; iterator < 8; iterator++)
-            {
-                Position positionRightUpDiagonal = new Position(selectedColumn + iterator, selectedRow + iterator);
-                Position positionLeftUpDiagonal = new Position(selectedColumn - iterator, selectedRow + iterator);
-                Position positionRightDownDiagonal = new Position(selectedColumn + iterator, selectedRow - iterator);
-                Position positionLeftDownDiagonal = new Position(selectedColumn - iterator, selectedRow - iterator);
+			for (int iterator = 1; iterator < 8; iterator++)
+			{
+				Position positionRightUpDiagonal = new Position(selectedColumn + iterator, selectedRow + iterator);
+				Position positionLeftUpDiagonal = new Position(selectedColumn - iterator, selectedRow + iterator);
+				Position positionRightDownDiagonal = new Position(selectedColumn + iterator, selectedRow - iterator);
+				Position positionLeftDownDiagonal = new Position(selectedColumn - iterator, selectedRow - iterator);
 
 				if (IsWithinBoard(positionRightUpDiagonal) && addRightUpDiagonal)
 				{
@@ -373,71 +380,72 @@ namespace ChessWPF.ViewModel
 					possiblePositions.Add(positionLeftDownDiagonal);
 					addLeftDownDiagonal = GetFigureFromPosition(positionLeftDownDiagonal) == null;
 				}
-            }
+			}
 
-            return possiblePositions;
-        }
+			return possiblePositions;
+		}
 
-        private List<Position> GeneratePossibleQueenPositions()
-        {
-            List<Position> possiblePositions = new List<Position>();
+		private List<Position> GeneratePossibleQueenPositions()
+		{
+			List<Position> possiblePositions = new List<Position>();
 
-            possiblePositions.AddRange(GeneratePossibleRookPositions());
-            possiblePositions.AddRange(GeneratePossibleBishopPositions());
+			possiblePositions.AddRange(GeneratePossibleRookPositions());
+			possiblePositions.AddRange(GeneratePossibleBishopPositions());
 
-            return possiblePositions;
-        }
+			return possiblePositions;
+		}
 
-        private List<Position> GeneratePossibleKingPositions()
-        {
-            List<Position> possiblePositions = new List<Position>();
+		private List<Position> GeneratePossibleKingPositions()
+		{
+			List<Position> possiblePositions = new List<Position>();
 
-            int[] x = { -1, -1, -1, 1, 1, 1, 0, 0 };
-            int[] y = { -1, 0, 1, -1, 0, 1, -1, 1 };
-            var selectedColumn = selectedTile.Position.Column;
-            var selectedRow = selectedTile.Position.Row;
+			int[] x = { -1, -1, -1, 1, 1, 1, 0, 0 };
+			int[] y = { -1, 0, 1, -1, 0, 1, -1, 1 };
+			var selectedColumn = selectedTile.Position.Column;
+			var selectedRow = selectedTile.Position.Row;
 
-            for (int iterator = 0; iterator < 8; iterator++)
-            {
-                Position position = new Position(selectedColumn + y[iterator], selectedRow + x[iterator]);
-                if (IsWithinBoard(position))
-                    possiblePositions.Add(position);
-            }
+			for (int iterator = 0; iterator < 8; iterator++)
+			{
+				Position position = new Position(selectedColumn + y[iterator], selectedRow + x[iterator]);
+				if (IsWithinBoard(position))
+					possiblePositions.Add(position);
+			}
 
-            return possiblePositions;
-        }
+			return possiblePositions;
+		}
 
-        private Position ResolveFigurePosition(BoardTileViewModel caller)
-        {
+		private Position ResolveFigurePosition(BoardTileViewModel caller)
+		{
 			return selectedTile.Figure.PossiblePositions.Contains(caller.Position) && IsPossibleToMove(caller, caller.Position) ? caller.Position : null;
 		}
 
-        private bool IsPossibleToMove(BoardTileViewModel caller, Position newPosition) {
-            bool isWithinBoard = IsWithinBoard(newPosition);
-            bool isAlly = IsAlly(caller);
-            return isWithinBoard && !isAlly;
-        }
+		private bool IsPossibleToMove(BoardTileViewModel caller, Position newPosition)
+		{
+			bool isWithinBoard = IsWithinBoard(newPosition);
+			bool isAlly = IsAlly(caller);
+			return isWithinBoard && !isAlly;
+		}
 
-        private bool IsWithinBoard(Position position)
-        {
-            return position.Column >= 0 && position.Column <= 7 && position.Row >= 0 && position.Row <= 7; ;
-        }
+		private bool IsWithinBoard(Position position)
+		{
+			return position.Column >= 0 && position.Column <= 7 && position.Row >= 0 && position.Row <= 7; ;
+		}
 
-        private bool IsAlly(BoardTileViewModel caller)
-        {
-            return caller.Figure == null ? false : caller.Figure.Color == selectedTile.Figure.Color;
-        }
+		private bool IsAlly(BoardTileViewModel caller)
+		{
+			return caller.Figure == null ? false : caller.Figure.Color == selectedTile.Figure.Color;
+		}
 
-        public void ChangePlayer(object message)
-        {
-            actualPlayerColor = actualPlayerColor == FigureColor.Dark ? FigureColor.White : FigureColor.Dark;
-        }
+		public void ChangePlayer(object message)
+		{
+			actualPlayerColor = actualPlayerColor == FigureColor.Dark ? FigureColor.White : FigureColor.Dark;
+		}
 
-        public List<BoardFigure> BoardFigures
-        {
-            get { return _FiguresList; }
-            set { _FiguresList = value; }
-        }
+		public List<BoardFigure> BoardFigures
+		{
+			get { return _FiguresList; }
+			set { _FiguresList = value; }
+		}
 
 		public List<BoardFigure> OutOfBoardFigures
 		{
@@ -446,10 +454,10 @@ namespace ChessWPF.ViewModel
 		}
 
 		public List<BoardTileViewModel> BoardTiles
-        {
-            get { return _TilesList; }
-            set { _TilesList = value; }
-        }
+		{
+			get { return _TilesList; }
+			set { _TilesList = value; }
+		}
 
-    }
+	}
 }
