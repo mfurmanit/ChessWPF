@@ -5,7 +5,6 @@ namespace ChessWPF.Model
 {
 	public class BoardFigure
 	{
-		public string Path { get; set; }
 
 		public FigureType Type { get; set; }
 

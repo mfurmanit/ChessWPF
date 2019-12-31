@@ -114,14 +114,75 @@ namespace ChessWPF.ViewModel
             set
             {
                 SetProperty(ref figure, value);
-                if (figure != null)
-                    ImageSource = new BitmapImage(new Uri(Figure.Path, UriKind.Relative));
-                else
-                    ImageSource = null;
+				if (figure != null)
+					ImageSource = GetFigureBitmapImage();
+				else
+					ImageSource = null;
             }
         }
 
-        public ImageSource ImageSource
+		private BitmapImage GetFigureBitmapImage()
+		{
+			if (figure == null)
+				return null;
+
+			string path = "";
+			if (figure.Color == Model.Constants.FigureColor.White)
+			{
+				switch (figure.Type)
+				{
+					case Model.Constants.FigureType.Pawn:
+						path = "/Resources/Figures/pawn_white.png";
+						break;
+					case Model.Constants.FigureType.Knight:
+						path = "/Resources/Figures/knight_white.png";
+						break;
+					case Model.Constants.FigureType.Bishop:
+						path = "/Resources/Figures/bishop_white.png";
+						break;
+					case Model.Constants.FigureType.Queen:
+						path = "/Resources/Figures/queen_white.png";
+						break;
+					case Model.Constants.FigureType.King:
+						path = "/Resources/Figures/king_white.png";
+						break;
+					case Model.Constants.FigureType.Rook:
+						path = "/Resources/Figures/rook_white.png";
+						break;
+					default:
+						break;
+				}
+			}
+			else if (figure.Color == Model.Constants.FigureColor.Dark)
+			{
+				switch (figure.Type)
+				{
+					case Model.Constants.FigureType.Pawn:
+						path = "/Resources/Figures/pawn_dark.png";
+						break;
+					case Model.Constants.FigureType.Knight:
+						path = "/Resources/Figures/knight_dark.png";
+						break;
+					case Model.Constants.FigureType.Bishop:
+						path = "/Resources/Figures/bishop_dark.png";
+						break;
+					case Model.Constants.FigureType.Queen:
+						path = "/Resources/Figures/queen_dark.png";
+						break;
+					case Model.Constants.FigureType.King:
+						path = "/Resources/Figures/king_dark.png";
+						break;
+					case Model.Constants.FigureType.Rook:
+						path = "/Resources/Figures/rook_dark.png";
+						break;
+					default:
+						break;
+				}
+			}
+			return new BitmapImage(new Uri(path, UriKind.Relative));
+		}
+
+		public ImageSource ImageSource
         {
             get => figureImage;
             set => SetProperty(ref figureImage, value);
