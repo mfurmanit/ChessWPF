@@ -2,31 +2,20 @@
 
 namespace ChessWPF.Model
 {
-    public class Position : Utils.BindableBase, IEquatable<Position>
+    public class Position : IEquatable<Position>
     {
-        private int column;
-        private int row;
-
         public Position(int column, int row) {
-            this.column = column;
-            this.row = row;
+            Column = column;
+            Row = row;
         }
 
-        public int Column
-        {
-            get => column;
-            set => SetProperty(ref column, value);
-        }
+        public int Column { get; set; }
 
-        public int Row
-        {
-            get => row;
-            set => SetProperty(ref row, value);
-        }
+        public int Row { get; set; }
 
         public bool Equals(Position other)
         {
-            return other == null ? false : this.column == other.Column && this.row == other.Row;
+            return other == null ? false : Column == other.Column && Row == other.Row;
         }
     }
 }
