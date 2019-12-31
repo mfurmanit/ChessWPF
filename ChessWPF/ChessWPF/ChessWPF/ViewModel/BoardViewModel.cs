@@ -12,6 +12,7 @@ namespace ChessWPF.ViewModel
     public class BoardViewModel
     {
         private List<BoardFigure> _FiguresList;
+        private List<BoardFigure> _FiguresListOutOfBoard;
         private List<BoardTileViewModel> _TilesList;
 
         public BoardViewModel()
@@ -60,6 +61,7 @@ namespace ChessWPF.ViewModel
                 new BoardFigure(FigureType.Knight, FigureColor.White, new Position("G1")),
                 new BoardFigure(FigureType.Rook, FigureColor.White, new Position("H1"))
             };
+			_FiguresListOutOfBoard = new List<BoardFigure>();
         }
 
         private void GenerateTilesList()
@@ -97,6 +99,7 @@ namespace ChessWPF.ViewModel
         {
             if (selectedTile != null && eventCaller.Position.Equals(ResolveFigurePosition(eventCaller)))
             {
+				var oldFigure = eventCaller.Figure;
                 var selectedFigure = selectedTile.Figure;
                 SetBaseStyle(selectedTile);
                 selectedTile.Figure = null;
@@ -105,6 +108,13 @@ namespace ChessWPF.ViewModel
                 eventCaller.Figure = selectedFigure;
                 SetBaseStyle(eventCaller);
                 Mediator.NotifyColleagues("ChangePlayer", actualPlayerColor);
+
+				if (oldFigure != null)
+				{
+					BoardFigures.Remove(oldFigure);
+					oldFigure.Position = null;
+					OutOfBoardFigures.Add(oldFigure);
+				}
             } else if (eventCaller.Figure != null && eventCaller.Figure.Color.Equals(actualPlayerColor))
             {
                 selectedTile = eventCaller;
@@ -174,6 +184,11 @@ namespace ChessWPF.ViewModel
             tile.Cursor = Cursors.Hand;
         }
 
+		private BoardFigure GetFigureFromPosition(Position position)
+		{
+			return _FiguresList.FirstOrDefault(f => f.Position == position);
+		}
+
         private void GeneratePossiblePositions(BoardFigure boardFigure) {
             switch (boardFigure.Type)
             {
@@ -228,17 +243,43 @@ namespace ChessWPF.ViewModel
 
 			if (boardFigure.Color == FigureColor.White)
 			{
-				possiblePositions.Add(new Position(selectedTilePosition.Column, System.Math.Max(0, selectedTilePosition.Row - 1)));
-				if(selectedTilePosition.Row == 6)
-					possiblePositions.Add(new Position(selectedTilePosition.Column, System.Math.Max(0, selectedTilePosition.Row - 2)));
+				var pos = new Position(selectedTilePosition.Column, selectedTilePosition.Row - 1);
+				if(IsWithinBoard(pos) && GetFigureFromPosition(pos) == null)
+					possiblePositions.Add(pos);
+				if (selectedTilePosition.Row == 6)
+				{
+					pos = new Position(selectedTilePosition.Column, selectedTilePosition.Row - 2);
+					if (IsWithinBoard(pos) && GetFigureFromPosition(pos) == null)
+						possiblePositions.Add(pos);
+				}
 
+				pos = new Position(selectedTilePosition.Column + 1, selectedTilePosition.Row - 1);
+				if (IsWithinBoard(pos) && GetFigureFromPosition(pos) != null)
+					possiblePositions.Add(pos);
 
+				pos = new Position(selectedTilePosition.Column - 1, selectedTilePosition.Row - 1);
+				if (IsWithinBoard(pos) && GetFigureFromPosition(pos) != null)
+					possiblePositions.Add(pos);
 			}
 			else
 			{
-				possiblePositions.Add(new Position(selectedTilePosition.Column, System.Math.Min(7, selectedTilePosition.Row + 1)));
+				var pos = new Position(selectedTilePosition.Column, Math.Max(0, selectedTilePosition.Row + 1));
+				if (GetFigureFromPosition(pos) == null)
+					possiblePositions.Add(pos);
 				if (selectedTilePosition.Row == 1)
-					possiblePositions.Add(new Position(selectedTilePosition.Column, System.Math.Max(0, selectedTilePosition.Row + 2)));
+				{
+					pos = new Position(selectedTilePosition.Column, Math.Max(0, selectedTilePosition.Row + 2));
+					if (GetFigureFromPosition(pos) == null)
+						possiblePositions.Add(pos);
+				}
+
+				pos = new Position(selectedTilePosition.Column + 1, selectedTilePosition.Row + 1);
+				if (IsWithinBoard(pos) && GetFigureFromPosition(pos) != null)
+					possiblePositions.Add(pos);
+
+				pos = new Position(selectedTilePosition.Column - 1, selectedTilePosition.Row + 1);
+				if (IsWithinBoard(pos) && GetFigureFromPosition(pos) != null)
+					possiblePositions.Add(pos);
 			}
 
             return possiblePositions;
@@ -251,24 +292,41 @@ namespace ChessWPF.ViewModel
             var selectedColumn = selectedTile.Position.Column;
             var selectedRow = selectedTile.Position.Row;
 
-            for (int iterator = 0; iterator < 8; iterator++)
+			bool addUp = true;
+			bool addLeft = true;
+			bool addRight = true;
+			bool addDown = true;
+
+            for (int iterator = 1; iterator < 8; iterator++)
             {
                 Position positionUp = new Position(selectedColumn, selectedRow + iterator);
                 Position positionDown = new Position(selectedColumn, selectedRow - iterator);
                 Position positionLeft = new Position(selectedColumn - iterator, selectedRow);
                 Position positionRight = new Position(selectedColumn + iterator, selectedRow);
 
-                if (IsWithinBoard(positionUp))
-                    possiblePositions.Add(positionUp);
+				if (IsWithinBoard(positionUp) && addUp)
+				{
+					possiblePositions.Add(positionUp);
+					addUp = GetFigureFromPosition(positionUp) == null;
+				}
 
-                if (IsWithinBoard(positionDown))
-                    possiblePositions.Add(positionDown);
+				if (IsWithinBoard(positionDown) && addDown)
+				{
+					possiblePositions.Add(positionDown);
+					addDown = GetFigureFromPosition(positionDown) == null;
+				}
 
-                if (IsWithinBoard(positionLeft))
-                    possiblePositions.Add(positionLeft);
+				if (IsWithinBoard(positionLeft) && addLeft)
+				{
+					possiblePositions.Add(positionLeft);
+					addLeft = GetFigureFromPosition(positionLeft) == null;
+				}
 
-                if (IsWithinBoard(positionRight))
-                    possiblePositions.Add(positionRight);
+				if (IsWithinBoard(positionRight) && addRight)
+				{
+					possiblePositions.Add(positionRight);
+					addRight = GetFigureFromPosition(positionRight) == null;
+				}
             }
 
             return possiblePositions;
@@ -280,25 +338,41 @@ namespace ChessWPF.ViewModel
 
             var selectedColumn = selectedTile.Position.Column;
             var selectedRow = selectedTile.Position.Row;
+			bool addRightUpDiagonal = true;
+			bool addLeftUpDiagonal = true;
+			bool addRightDownDiagonal = true;
+			bool addLeftDownDiagonal = true;
 
-            for (int iterator = 0; iterator < 8; iterator++)
+            for (int iterator = 1; iterator < 8; iterator++)
             {
                 Position positionRightUpDiagonal = new Position(selectedColumn + iterator, selectedRow + iterator);
                 Position positionLeftUpDiagonal = new Position(selectedColumn - iterator, selectedRow + iterator);
                 Position positionRightDownDiagonal = new Position(selectedColumn + iterator, selectedRow - iterator);
                 Position positionLeftDownDiagonal = new Position(selectedColumn - iterator, selectedRow - iterator);
 
-                if (IsWithinBoard(positionRightUpDiagonal))
-                    possiblePositions.Add(positionRightUpDiagonal);
+				if (IsWithinBoard(positionRightUpDiagonal) && addRightUpDiagonal)
+				{
+					possiblePositions.Add(positionRightUpDiagonal);
+					addRightUpDiagonal = GetFigureFromPosition(positionRightUpDiagonal) == null;
+				}
 
-                if (IsWithinBoard(positionLeftUpDiagonal))
-                    possiblePositions.Add(positionLeftUpDiagonal);
+				if (IsWithinBoard(positionLeftUpDiagonal) && addLeftUpDiagonal)
+				{
+					possiblePositions.Add(positionLeftUpDiagonal);
+					addLeftUpDiagonal = GetFigureFromPosition(positionLeftUpDiagonal) == null;
+				}
 
-                if (IsWithinBoard(positionRightDownDiagonal))
-                    possiblePositions.Add(positionRightDownDiagonal);
+				if (IsWithinBoard(positionRightDownDiagonal) && addRightDownDiagonal)
+				{
+					possiblePositions.Add(positionRightDownDiagonal);
+					addRightDownDiagonal = GetFigureFromPosition(positionRightDownDiagonal) == null;
+				}
 
-                if (IsWithinBoard(positionLeftDownDiagonal))
-                    possiblePositions.Add(positionLeftDownDiagonal);
+				if (IsWithinBoard(positionLeftDownDiagonal) && addLeftDownDiagonal)
+				{
+					possiblePositions.Add(positionLeftDownDiagonal);
+					addLeftDownDiagonal = GetFigureFromPosition(positionLeftDownDiagonal) == null;
+				}
             }
 
             return possiblePositions;
@@ -335,8 +409,8 @@ namespace ChessWPF.ViewModel
 
         private Position ResolveFigurePosition(BoardTileViewModel caller)
         {
-            return selectedTile.Figure.PossiblePositions.Contains(caller.Position) && IsPossibleToMove(caller, caller.Position) ? caller.Position : null;
-        }
+			return selectedTile.Figure.PossiblePositions.Contains(caller.Position) && IsPossibleToMove(caller, caller.Position) ? caller.Position : null;
+		}
 
         private bool IsPossibleToMove(BoardTileViewModel caller, Position newPosition) {
             bool isWithinBoard = IsWithinBoard(newPosition);
@@ -365,7 +439,13 @@ namespace ChessWPF.ViewModel
             set { _FiguresList = value; }
         }
 
-        public List<BoardTileViewModel> BoardTiles
+		public List<BoardFigure> OutOfBoardFigures
+		{
+			get { return _FiguresListOutOfBoard; }
+			set { _FiguresListOutOfBoard = value; }
+		}
+
+		public List<BoardTileViewModel> BoardTiles
         {
             get { return _TilesList; }
             set { _TilesList = value; }

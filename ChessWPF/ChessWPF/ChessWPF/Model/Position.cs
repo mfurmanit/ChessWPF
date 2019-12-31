@@ -72,5 +72,60 @@ namespace ChessWPF.Model
 		{
 			return other == null ? false : Column == other.Column && Row == other.Row;
 		}
+
+		public static bool operator ==(Position pos1, Position pos2)
+		{
+			if (ReferenceEquals(pos1, pos2))
+				return true;
+
+			if (ReferenceEquals(pos1, null))
+				return false;
+
+			if (ReferenceEquals(pos2, null))
+				return false;
+
+			return pos1.Equals(pos2);
+		}
+
+		public static bool operator !=(Position pos1, Position pos2)
+		{
+			return !(pos1 == pos2);
+		}
+
+		public override string ToString()
+		{
+			string pos = "";
+			switch (Column)
+			{
+				case 0:
+					pos += "A";
+					break;
+				case 1:
+					pos += "B";
+					break;
+				case 2:
+					pos += "C";
+					break;
+				case 3:
+					pos += "D";
+					break;
+				case 4:
+					pos += "E";
+					break;
+				case 5:
+					pos += "F";
+					break;
+				case 6:
+					pos += "G";
+					break;
+				case 7:
+					pos += "H";
+					break;
+			}
+
+			int row = 8 - Row;
+			pos += row.ToString();
+			return pos;
+		}
 	}
 }
