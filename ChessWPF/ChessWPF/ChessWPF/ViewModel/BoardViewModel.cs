@@ -26,40 +26,39 @@ namespace ChessWPF.ViewModel
             _FiguresList = new List<BoardFigure>
             {
                 // Dark figures
-                new BoardFigure{Type=FigureType.Rook, Color=FigureColor.Dark, TileIndex=0},
-                new BoardFigure{Type=FigureType.Knight, Color=FigureColor.Dark, TileIndex=1},
-                new BoardFigure{Type=FigureType.Bishop, Color=FigureColor.Dark, TileIndex=2},
-                new BoardFigure{Type=FigureType.Queen, Color=FigureColor.Dark, TileIndex=3},
-                new BoardFigure{Type=FigureType.King, Color=FigureColor.Dark, TileIndex=4},
-                new BoardFigure{Type=FigureType.Bishop, Color=FigureColor.Dark, TileIndex=5},
-                new BoardFigure{Type=FigureType.Knight, Color=FigureColor.Dark, TileIndex=6},
-                new BoardFigure{Type=FigureType.Rook, Color=FigureColor.Dark, TileIndex=7},
-                new BoardFigure{Type=FigureType.Pawn, Color=FigureColor.Dark, TileIndex=8},
-                new BoardFigure{Type=FigureType.Pawn, Color=FigureColor.Dark, TileIndex=9},
-                new BoardFigure{Type=FigureType.Pawn, Color=FigureColor.Dark, TileIndex=10},
-                new BoardFigure{Type=FigureType.Pawn, Color=FigureColor.Dark, TileIndex=11},
-                new BoardFigure{Type=FigureType.Pawn, Color=FigureColor.Dark, TileIndex=12},
-                new BoardFigure{Type=FigureType.Pawn, Color=FigureColor.Dark, TileIndex=13},
-                new BoardFigure{Type=FigureType.Pawn, Color=FigureColor.Dark, TileIndex=14},
-                new BoardFigure{Type=FigureType.Pawn, Color=FigureColor.Dark, TileIndex=15},
-
-                // White figures
-                new BoardFigure{Type=FigureType.Pawn, Color=FigureColor.White, TileIndex=48},
-                new BoardFigure{Type=FigureType.Pawn, Color=FigureColor.White, TileIndex=49},
-                new BoardFigure{Type=FigureType.Pawn, Color=FigureColor.White, TileIndex=50},
-                new BoardFigure{Type=FigureType.Pawn, Color=FigureColor.White, TileIndex=51},
-                new BoardFigure{Type=FigureType.Pawn, Color=FigureColor.White, TileIndex=52},
-                new BoardFigure{Type=FigureType.Pawn, Color=FigureColor.White, TileIndex=53},
-                new BoardFigure{Type=FigureType.Pawn, Color=FigureColor.White, TileIndex=54},
-                new BoardFigure{Type=FigureType.Pawn, Color=FigureColor.White, TileIndex=55},
-                new BoardFigure{Type=FigureType.Rook, Color=FigureColor.White, TileIndex=56},
-                new BoardFigure{Type=FigureType.Knight, Color=FigureColor.White, TileIndex=57},
-                new BoardFigure{Type=FigureType.Bishop, Color=FigureColor.White, TileIndex=58},
-                new BoardFigure{Type=FigureType.Queen, Color=FigureColor.White, TileIndex=59},
-                new BoardFigure{Type=FigureType.King, Color=FigureColor.White, TileIndex=60},
-                new BoardFigure{Type=FigureType.Bishop, Color=FigureColor.White, TileIndex=61},
-                new BoardFigure{Type=FigureType.Knight, Color=FigureColor.White, TileIndex=62},
-                new BoardFigure{Type=FigureType.Rook, Color=FigureColor.White, TileIndex=63}
+                new BoardFigure(FigureType.Rook, FigureColor.Dark, new Position("A8")),
+                new BoardFigure(FigureType.Knight, FigureColor.Dark, new Position("B8")),
+                new BoardFigure(FigureType.Bishop, FigureColor.Dark, new Position("C8")),
+                new BoardFigure(FigureType.Queen, FigureColor.Dark, new Position("D8")),
+                new BoardFigure(FigureType.King, FigureColor.Dark, new Position("E8")),
+                new BoardFigure(FigureType.Bishop, FigureColor.Dark, new Position("F8")),
+                new BoardFigure(FigureType.Knight, FigureColor.Dark, new Position("G8")),
+                new BoardFigure(FigureType.Rook, FigureColor.Dark, new Position("H8")),
+                new BoardFigure(FigureType.Pawn, FigureColor.Dark, new Position("A7")),
+                new BoardFigure(FigureType.Pawn, FigureColor.Dark, new Position("B7")),
+                new BoardFigure(FigureType.Pawn, FigureColor.Dark, new Position("C7")),
+                new BoardFigure(FigureType.Pawn, FigureColor.Dark, new Position("D7")),
+                new BoardFigure(FigureType.Pawn, FigureColor.Dark, new Position("E7")),
+                new BoardFigure(FigureType.Pawn, FigureColor.Dark, new Position("F7")),
+                new BoardFigure(FigureType.Pawn, FigureColor.Dark, new Position("G7")),
+                new BoardFigure(FigureType.Pawn, FigureColor.Dark, new Position("H7")),
+				                // White figures
+                new BoardFigure(FigureType.Pawn, FigureColor.White, new Position("A2")),
+                new BoardFigure(FigureType.Pawn, FigureColor.White, new Position("B2")),
+                new BoardFigure(FigureType.Pawn, FigureColor.White, new Position("C2")),
+                new BoardFigure(FigureType.Pawn, FigureColor.White, new Position("D2")),
+                new BoardFigure(FigureType.Pawn, FigureColor.White, new Position("E2")),
+                new BoardFigure(FigureType.Pawn, FigureColor.White, new Position("F2")),
+                new BoardFigure(FigureType.Pawn, FigureColor.White, new Position("G2")),
+                new BoardFigure(FigureType.Pawn, FigureColor.White, new Position("H2")),
+                new BoardFigure(FigureType.Rook, FigureColor.White, new Position("A1")),
+                new BoardFigure(FigureType.Knight, FigureColor.White, new Position("B1")),
+                new BoardFigure(FigureType.Bishop, FigureColor.White, new Position("C1")),
+                new BoardFigure(FigureType.Queen, FigureColor.White, new Position("D1")),
+                new BoardFigure(FigureType.King, FigureColor.White, new Position("E1")),
+                new BoardFigure(FigureType.Bishop, FigureColor.White, new Position("F1")),
+                new BoardFigure(FigureType.Knight, FigureColor.White, new Position("G1")),
+                new BoardFigure(FigureType.Rook, FigureColor.White, new Position("H1"))
             };
         }
 
@@ -102,7 +101,7 @@ namespace ChessWPF.ViewModel
                 SetBaseStyle(selectedTile);
                 selectedTile.Figure = null;
                 selectedTile = null;
-                selectedFigure.TileIndex = eventCaller.Index;
+                selectedFigure.Position = eventCaller.Position;
                 eventCaller.Figure = selectedFigure;
                 SetBaseStyle(eventCaller);
                 Mediator.NotifyColleagues("ChangePlayer", actualPlayerColor);
