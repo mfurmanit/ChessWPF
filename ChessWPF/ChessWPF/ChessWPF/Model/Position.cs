@@ -65,7 +65,7 @@ namespace ChessWPF.Model
 
 		public int TileIndex
 		{
-			get => Column + Row * 8s;
+			get => Column + Row * 8;
 		}
 
 		public bool Equals(Position other)
