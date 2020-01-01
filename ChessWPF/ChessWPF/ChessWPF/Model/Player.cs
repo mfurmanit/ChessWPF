@@ -7,38 +7,22 @@ using System.Threading.Tasks;
 
 namespace ChessWPF.Model
 {
-    public class Player : Utils.BindableBase, IEquatable<Player>
+    public class Player : IEquatable<Player>
     {
-        private string name;
-        private FigureColor selectedColor;
-        private int secondsForMove = 30;
-
         public Player(string name, FigureColor selectedColor) {
-            this.name = name;
-            this.selectedColor = selectedColor;
+            Name = name;
+            SelectedColor = selectedColor;
         }
 
-        public string Name
-        {
-            get => name;
-            set => SetProperty(ref name, value);
-        }
+        public string Name { get; set; }
 
-        public FigureColor SelectedColor
-        {
-            get => selectedColor;
-            set => SetProperty(ref selectedColor, value);
-        }
+        public FigureColor SelectedColor { get; set; }
 
-        public int SecondsForMove
-        {
-            get => secondsForMove;
-            set => SetProperty(ref secondsForMove, value);
-        }
+		public int SecondsForMove { get; set; } = 30;
 
         public bool Equals(Player other)
         {
-            return other == null ? false : this.name.Equals(other.Name) && this.selectedColor == other.SelectedColor;
+            return other == null ? false : Name.Equals(other.Name) && SelectedColor == other.SelectedColor;
         }
 
     }

@@ -79,7 +79,6 @@
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="MainWindowModel.cs" />
     <Compile Include="Model\BoardFigure.cs" />
-    <Compile Include="Model\BoardTile.cs" />
     <Compile Include="Model\Constants\FigureColor.cs" />
     <Compile Include="Model\Constants\FigureType.cs" />
     <Compile Include="Model\Player.cs" />
