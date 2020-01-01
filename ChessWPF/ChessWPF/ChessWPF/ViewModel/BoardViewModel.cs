@@ -12,7 +12,6 @@ namespace ChessWPF.ViewModel
 	public class BoardViewModel
 	{
 		private List<BoardFigure> _FiguresList;
-		private List<BoardFigure> _FiguresListOutOfBoard;
 		private List<BoardTileViewModel> _TilesList;
 
 		public BoardViewModel()
@@ -43,7 +42,7 @@ namespace ChessWPF.ViewModel
 				new BoardFigure(FigureType.Pawn, FigureColor.Dark, new Position("F7")),
 				new BoardFigure(FigureType.Pawn, FigureColor.Dark, new Position("G7")),
 				new BoardFigure(FigureType.Pawn, FigureColor.Dark, new Position("H7")),
-				                // White figures
+			    // White figures
                 new BoardFigure(FigureType.Pawn, FigureColor.White, new Position("A2")),
 				new BoardFigure(FigureType.Pawn, FigureColor.White, new Position("B2")),
 				new BoardFigure(FigureType.Pawn, FigureColor.White, new Position("C2")),
@@ -61,7 +60,6 @@ namespace ChessWPF.ViewModel
 				new BoardFigure(FigureType.Knight, FigureColor.White, new Position("G1")),
 				new BoardFigure(FigureType.Rook, FigureColor.White, new Position("H1"))
 			};
-			_FiguresListOutOfBoard = new List<BoardFigure>();
 		}
 
 		private void GenerateTilesList()
@@ -111,11 +109,7 @@ namespace ChessWPF.ViewModel
 				Mediator.NotifyColleagues("ChangePlayer", actualPlayerColor);
 
 				if (oldFigure != null)
-				{
 					BoardFigures.Remove(oldFigure);
-					oldFigure.Position = null;
-					OutOfBoardFigures.Add(oldFigure);
-				}
 			}
 			else if (eventCaller.Figure != null && eventCaller.Figure.Color.Equals(actualPlayerColor))
 			{
@@ -445,12 +439,6 @@ namespace ChessWPF.ViewModel
 		{
 			get { return _FiguresList; }
 			set { _FiguresList = value; }
-		}
-
-		public List<BoardFigure> OutOfBoardFigures
-		{
-			get { return _FiguresListOutOfBoard; }
-			set { _FiguresListOutOfBoard = value; }
 		}
 
 		public List<BoardTileViewModel> BoardTiles
