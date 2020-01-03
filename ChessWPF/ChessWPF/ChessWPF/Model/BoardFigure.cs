@@ -3,42 +3,27 @@ using System.Collections.Generic;
 
 namespace ChessWPF.Model
 {
-	public class BoardFigure : Utils.BindableBase
+	public class BoardFigure
 	{
-		private string path;
-		private FigureType type;
-		private FigureColor color;
-		private int tileIndex;
-		private List<Position> possiblePositions = new List<Position>();
-
-		public string Path
+		public BoardFigure()
 		{
-			get => path;
-			set => SetProperty(ref path, value);
 		}
 
-		public FigureType Type
+		public BoardFigure(FigureType type, FigureColor color, Position position)
 		{
-			get => type;
-			set => SetProperty(ref type, value);
+			Type = type;
+			Color = color;
+			Position = position;
 		}
 
-		public FigureColor Color
-		{
-			get => color;
-			set => SetProperty(ref color, value);
-		}
+		public FigureType Type { get; set; }
 
-		public int TileIndex
-		{
-			get => tileIndex;
-			set => SetProperty(ref tileIndex, value);
-		}
+		public FigureColor Color { get; set; }
 
-        public List<Position> PossiblePositions
-        {
-            get => possiblePositions;
-            set => SetProperty(ref possiblePositions, value);
-        }
+		public int TileIndex { get => Position.TileIndex; }
+
+		public Position Position { get; set; }
+
+		public List<Position> PossiblePositions { get; set; } = new List<Position>();
     }
 }
