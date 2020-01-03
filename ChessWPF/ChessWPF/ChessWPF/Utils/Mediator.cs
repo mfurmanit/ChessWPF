@@ -40,5 +40,10 @@ namespace ChessWPF.Utils
                 foreach (var callback in pl_dict[token])
                     callback(args);
         }
+
+        static public void ResetMediator()
+        {
+            pl_dict.Clear();
+        }
     }
 }
