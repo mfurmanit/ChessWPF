@@ -6,7 +6,8 @@ namespace ChessWPF {
     /// </summary>
     public partial class App : Application {
         App() {
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+            // Uncomment to set application language as English
+            // System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
         }
     }
 }
