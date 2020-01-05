@@ -9,8 +9,9 @@
 //------------------------------------------------------------------------------
 
 namespace ChessWPF.Properties {
-
-
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -18,44 +19,143 @@ namespace ChessWPF.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
-
+    public class Resources {
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal Resources() {
         }
-
+        
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
-                if ((resourceMan == null)) {
+                if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ChessWPF.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Czarny.
+        /// </summary>
+        public static string Dark_Player {
+            get {
+                return ResourceManager.GetString("Dark_Player", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ZAKOŃCZ GRĘ.
+        /// </summary>
+        public static string End_Game_Label {
+            get {
+                return ResourceManager.GetString("End_Game_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ruch wykonuje:.
+        /// </summary>
+        public static string Move_Title {
+            get {
+                return ResourceManager.GetString("Move_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 120 sekund na ruch dla gracza.
+        /// </summary>
+        public static string Player_Seconds_120 {
+            get {
+                return ResourceManager.GetString("Player_Seconds_120", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 180 sekund na ruch dla gracza.
+        /// </summary>
+        public static string Player_Seconds_180 {
+            get {
+                return ResourceManager.GetString("Player_Seconds_180", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 30 sekund na ruch dla gracza.
+        /// </summary>
+        public static string Player_Seconds_30 {
+            get {
+                return ResourceManager.GetString("Player_Seconds_30", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 60 sekund na ruch dla gracza.
+        /// </summary>
+        public static string Player_Seconds_60 {
+            get {
+                return ResourceManager.GetString("Player_Seconds_60", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pozostały czas:.
+        /// </summary>
+        public static string Time_Left_Title {
+            get {
+                return ResourceManager.GetString("Time_Left_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Biały.
+        /// </summary>
+        public static string White_Player {
+            get {
+                return ResourceManager.GetString("White_Player", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zwyciężył {0}, gratulacje!.
+        /// </summary>
+        public static string Winner_Dialog_Info {
+            get {
+                return ResourceManager.GetString("Winner_Dialog_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rozgrywka zakończona.
+        /// </summary>
+        public static string Winner_Dialog_Title {
+            get {
+                return ResourceManager.GetString("Winner_Dialog_Title", resourceCulture);
             }
         }
     }

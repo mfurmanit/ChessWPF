@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:ChessWPF.View"
+             xmlns:p="clr-namespace:ChessWPF.Properties"
              mc:Ignorable="d"
              d:DesignHeight="750" d:DesignWidth="250">
     <Grid Background="White">
@@ -37,17 +37,17 @@
 
         <Rectangle Margin="0,0,10,0" Width="200" Height="1" Fill="Black" Grid.Row="5"/>
 
-        <Label Margin="0,0,10,0" Content="Ruch wykonuje:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="6"/>
+        <Label Margin="0,0,10,0" Content="{x:Static p:Resources.Move_Title}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="6"/>
         <Label Margin="0,0,10,0" Content="{Binding ActualPlayer.Name}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="7"/>
         
         <Rectangle Margin="0,0,10,0" Width="200" Height="1" Fill="Black" Grid.Row="8"/>
 
-        <Label Margin="0,0,10,0" Content="Pozostały czas:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="9"/>
+        <Label Margin="0,0,10,0" Content="{x:Static p:Resources.Time_Left_Title}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="9"/>
         <Label Margin="0,0,10,0" Content="{Binding Timer}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="10"/>
 
         <Rectangle Margin="0,0,10,0" Width="200" Height="1" Fill="Black" Grid.Row="11"/>
 
-        <Button Margin="0,15,10,15" Command="{Binding ClickCommand}" Content="ZAKOŃCZ GRĘ" Width="200" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Grid.Row="12"/>
+        <Button Margin="0,15,10,15" Command="{Binding ClickCommand}" Content="{x:Static p:Resources.End_Game_Label}" Width="200" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Grid.Row="12"/>
 
         <Rectangle Margin="0,0,10,10" Width="200" Height="1" Fill="Black" Grid.Row="13"/>
 

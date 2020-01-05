@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:p="clr-namespace:ChessWPF.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="400">
     <Grid>
@@ -42,10 +43,10 @@
 				  VerticalAlignment="Center" FontSize="20" Height="40"
 				  VerticalContentAlignment="Center"
                   SelectedItem="{Binding SelectedItem}">
-            <ComboBoxItem Name="s30" IsSelected="True">30 sekund na ruch dla gracza</ComboBoxItem>
-            <ComboBoxItem Name="s60">60 sekund na ruch dla gracza</ComboBoxItem>
-            <ComboBoxItem Name="s120">120 sekund na ruch dla gracza</ComboBoxItem>
-            <ComboBoxItem Name="s180">180 sekund na ruch dla gracza</ComboBoxItem>
+            <ComboBoxItem Name="s30" IsSelected="True" Content="{x:Static p:Resources.Player_Seconds_30}"></ComboBoxItem>
+            <ComboBoxItem Name="s60" Content="{x:Static p:Resources.Player_Seconds_60}"></ComboBoxItem>
+            <ComboBoxItem Name="s120" Content="{x:Static p:Resources.Player_Seconds_120}"></ComboBoxItem>
+            <ComboBoxItem Name="s180" Content="{x:Static p:Resources.Player_Seconds_180}"></ComboBoxItem>
         </ComboBox>
 
         <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Content="START"

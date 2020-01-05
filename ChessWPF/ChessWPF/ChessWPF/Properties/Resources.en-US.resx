@@ -118,36 +118,36 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Dark_Player" xml:space="preserve">
-    <value>Czarny</value>
+    <value>Dark</value>
   </data>
   <data name="End_Game_Label" xml:space="preserve">
-    <value>ZAKOŃCZ GRĘ</value>
+    <value>END GAME</value>
   </data>
   <data name="Move_Title" xml:space="preserve">
-    <value>Ruch wykonuje:</value>
+    <value>Move performs:</value>
   </data>
   <data name="Player_Seconds_120" xml:space="preserve">
-    <value>120 sekund na ruch dla gracza</value>
+    <value>120 seconds for player move</value>
   </data>
   <data name="Player_Seconds_180" xml:space="preserve">
-    <value>180 sekund na ruch dla gracza</value>
+    <value>180 seconds for player move</value>
   </data>
   <data name="Player_Seconds_30" xml:space="preserve">
-    <value>30 sekund na ruch dla gracza</value>
+    <value>30 seconds for player move</value>
   </data>
   <data name="Player_Seconds_60" xml:space="preserve">
-    <value>60 sekund na ruch dla gracza</value>
+    <value>60 seconds for player move</value>
   </data>
   <data name="Time_Left_Title" xml:space="preserve">
-    <value>Pozostały czas:</value>
+    <value>Time left:</value>
   </data>
   <data name="White_Player" xml:space="preserve">
-    <value>Biały</value>
+    <value>White</value>
   </data>
   <data name="Winner_Dialog_Info" xml:space="preserve">
-    <value>Zwyciężył {0}, gratulacje!</value>
+    <value>The winner is {0}, congratulations!</value>
   </data>
   <data name="Winner_Dialog_Title" xml:space="preserve">
-    <value>Rozgrywka zakończona</value>
+    <value>The game is over</value>
   </data>
 </root>
