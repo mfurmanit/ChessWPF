@@ -1,5 +1,4 @@
-﻿using System;
-using ChessWPF;
+﻿using ChessWPF;
 using ChessWPF.Model.Constants;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

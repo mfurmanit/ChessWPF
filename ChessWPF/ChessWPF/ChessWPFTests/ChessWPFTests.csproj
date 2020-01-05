@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FiguresInitializationTests.cs" />
-    <Compile Include="FiguresMovesTests.cs" />
+    <Compile Include="FiguresBasicMovesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
