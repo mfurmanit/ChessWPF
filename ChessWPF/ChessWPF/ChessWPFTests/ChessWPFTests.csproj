@@ -49,6 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FiguresAdvancedMovesTests.cs" />
     <Compile Include="FiguresInitializationTests.cs" />
     <Compile Include="FiguresBasicMovesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
