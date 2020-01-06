@@ -103,13 +103,60 @@ namespace ChessWPF.ViewModel
 				SetBaseStyle(selectedTile);
 				selectedTile.Figure = null;
 				selectedTile = null;
+
+				//castling
+				if (selectedFigure.Type == FigureType.King)
+				{
+					if (selectedFigure.Color == FigureColor.White && selectedFigure.Position.ToString() == "E1")
+					{
+						if (eventCaller.Position.ToString() == "G1")
+						{
+							var rookOldTile = GetTileViewModelFromPosition("H1");
+							var rookNewTile = GetTileViewModelFromPosition("F1");
+							rookNewTile.Figure = rookOldTile.Figure;
+							rookNewTile.Figure.Position = rookNewTile.Position;
+							rookOldTile.Figure = null;
+						}
+						else if (eventCaller.Position.ToString() == "C1")
+						{
+							var rookOldTile = GetTileViewModelFromPosition("A1");
+							var rookNewTile = GetTileViewModelFromPosition("D1");
+							rookNewTile.Figure = rookOldTile.Figure;
+							rookNewTile.Figure.Position = rookNewTile.Position;
+							rookOldTile.Figure = null;
+						}
+					}
+					else if (selectedFigure.Color == FigureColor.Dark && selectedFigure.Position.ToString() == "E8")
+					{
+						if (eventCaller.Position.ToString() == "G8")
+						{
+							var rookOldTile = GetTileViewModelFromPosition("H8");
+							var rookNewTile = GetTileViewModelFromPosition("F8");
+							rookNewTile.Figure = rookOldTile.Figure;
+							rookNewTile.Figure.Position = rookNewTile.Position;
+							rookOldTile.Figure = null;
+						}
+						else if (eventCaller.Position.ToString() == "C8")
+						{
+							var rookOldTile = GetTileViewModelFromPosition("A8");
+							var rookNewTile = GetTileViewModelFromPosition("D8");
+							rookNewTile.Figure = rookOldTile.Figure;
+							rookNewTile.Figure.Position = rookNewTile.Position;
+							rookOldTile.Figure = null;
+						}
+					}
+				}
+
 				selectedFigure.Position = eventCaller.Position;
 				eventCaller.Figure = selectedFigure;
 				SetBaseStyle(eventCaller);
-				Mediator.NotifyColleagues("ChangePlayer", actualPlayerColor);
+
 
 				if (oldFigure != null)
 					BoardFigures.Remove(oldFigure);
+
+				Mediator.NotifyColleagues("ChangePlayer", actualPlayerColor);
+
 			}
 			else if (eventCaller.Figure != null && eventCaller.Figure.Color.Equals(actualPlayerColor))
 			{
@@ -187,6 +234,23 @@ namespace ChessWPF.ViewModel
 		private BoardFigure GetFigureFromPosition(Position position)
 		{
 			return _FiguresList.FirstOrDefault(f => f.Position == position);
+		}
+
+		private BoardFigure GetFigureFromPosition(string position)
+		{
+			var pos = new Position(position);
+			return GetFigureFromPosition(pos);
+		}
+
+		private BoardTileViewModel GetTileViewModelFromPosition(Position position)
+		{
+			return _TilesList[position.TileIndex];
+		}
+
+		private BoardTileViewModel GetTileViewModelFromPosition(string position)
+		{
+			var pos = new Position(position);
+			return GetTileViewModelFromPosition(pos);
 		}
 
 		private void GeneratePossiblePositions(BoardFigure boardFigure)
@@ -403,6 +467,51 @@ namespace ChessWPF.ViewModel
 				Position position = new Position(selectedColumn + y[iterator], selectedRow + x[iterator]);
 				if (IsWithinBoard(position))
 					possiblePositions.Add(position);
+			}
+
+
+			if (selectedTile.Figure.Color == FigureColor.White && selectedTile.Figure.Position.ToString() == "E1")
+			{
+				var rook = GetFigureFromPosition("H1");
+				if (rook != null && rook.Type == FigureType.Rook && rook.Color == FigureColor.White)
+				{
+					bool castlingPossible = GetFigureFromPosition("F1") == null;
+					castlingPossible = castlingPossible && GetFigureFromPosition("G1") == null;
+					if (castlingPossible)
+						possiblePositions.Add(new Position("G1"));
+				}
+
+				rook = GetFigureFromPosition(new Position("A1"));
+				if (rook != null && rook.Type == FigureType.Rook && rook.Color == FigureColor.White)
+				{
+					bool castlingPossible = GetFigureFromPosition("B1") == null;
+					castlingPossible = castlingPossible && GetFigureFromPosition("C1") == null;
+					castlingPossible = castlingPossible && GetFigureFromPosition("D1") == null;
+					if (castlingPossible)
+						possiblePositions.Add(new Position("C1"));
+				}
+			}
+
+			if (selectedTile.Figure.Color == FigureColor.Dark && selectedTile.Figure.Position.ToString() == "E8")
+			{
+				var rook = GetFigureFromPosition("H8");
+				if (rook != null && rook.Type == FigureType.Rook && rook.Color == FigureColor.Dark)
+				{
+					bool castlingPossible = GetFigureFromPosition("F8") == null;
+					castlingPossible = castlingPossible && GetFigureFromPosition("G8") == null;
+					if (castlingPossible)
+						possiblePositions.Add(new Position("G8"));
+				}
+
+				rook = GetFigureFromPosition("A8");
+				if (rook != null && rook.Type == FigureType.Rook && rook.Color == FigureColor.Dark)
+				{
+					bool castlingPossible = GetFigureFromPosition("B8") == null;
+					castlingPossible = castlingPossible && GetFigureFromPosition("C8") == null;
+					castlingPossible = castlingPossible && GetFigureFromPosition("D8") == null;
+					if (castlingPossible)
+						possiblePositions.Add(new Position("C8"));
+				}
 			}
 
 			return possiblePositions;
