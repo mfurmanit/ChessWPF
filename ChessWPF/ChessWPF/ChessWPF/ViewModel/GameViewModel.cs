@@ -25,8 +25,8 @@ namespace ChessWPF.ViewModel
         public event Action Click = delegate { };
 
         public GameViewModel() {
-            WhitePlayer = new Player("White", Model.Constants.FigureColor.White);
-            DarkPlayer = new Player("Dark", Model.Constants.FigureColor.Dark);
+            WhitePlayer = new Player(Properties.Resources.White_Player, FigureColor.White);
+            DarkPlayer = new Player(Properties.Resources.Dark_Player, FigureColor.Dark);
             Mediator.Register("StartGame", StartGame);
             Mediator.Register("ChangePlayer", ChangeActualPlayer);
             ClickCommand = new RelayCommand(OnClick);
@@ -34,9 +34,11 @@ namespace ChessWPF.ViewModel
 
         private void OnClick()
         {
+            string message = String.Format(Properties.Resources.Winner_Dialog_Info, actualPlayer.Name);
+            string title = Properties.Resources.Winner_Dialog_Title;
             StopTimer();
             SetActualPlayer();
-            MessageBox.Show($"Zwyciężył {actualPlayer.Name}, gratulacje!", "Rozgrywka zakończona", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
             Mediator.NotifyColleagues("EndGame", ActualPlayer);
             Click();
         }

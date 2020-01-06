@@ -47,10 +47,11 @@ namespace ChessWPF.ViewModel
         private void StartClick()
         {
             if (string.IsNullOrWhiteSpace(Player1))
-                Player1 = "White";
+                Player1 = Properties.Resources.White_Player;
 
             if (string.IsNullOrWhiteSpace(Player2))
-                Player2 = "Black";
+                Player2 = Properties.Resources.Dark_Player;
+            
 
             int timer = SelectedItem == null ? 30 : Convert.ToInt32(SelectedItem.Name.Substring(1));
             WhitePlayer.Name = Player1;
