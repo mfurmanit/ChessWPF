@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace ChessWPF.ViewModel
 {
-	public class BoardViewModel
+	public class BoardViewModel : BindableBase
 	{
 		private List<BoardFigure> _FiguresList;
 		private List<BoardTileViewModel> _TilesList;
@@ -104,6 +104,7 @@ namespace ChessWPF.ViewModel
 				selectedTile.Figure = null;
 				selectedTile = null;
 
+
 				//castling
 				if (selectedFigure.Type == FigureType.King)
 				{
@@ -155,8 +156,24 @@ namespace ChessWPF.ViewModel
 				if (oldFigure != null)
 					BoardFigures.Remove(oldFigure);
 
-				Mediator.NotifyColleagues("ChangePlayer", actualPlayerColor);
-
+				//promotion
+				if (selectedFigure.Type == FigureType.Pawn && (eventCaller.Position.Row == 0 || eventCaller.Position.Row == 7))
+				{
+					PromotionViewModel = new PromotionViewModel(selectedFigure);
+					PromotionViewModel.Promotion += () =>
+					{
+						var fig = new BoardFigure(PromotionViewModel.SelectedFigure.Type, selectedFigure.Color, eventCaller.Position);
+						BoardFigures.Remove(eventCaller.Figure);
+						eventCaller.Figure = fig;
+						ShowPromotionView = false;
+						Mediator.NotifyColleagues("ChangePlayer", actualPlayerColor);
+					};
+					ShowPromotionView = true;
+				}
+				else
+				{
+					Mediator.NotifyColleagues("ChangePlayer", actualPlayerColor);
+				}
 			}
 			else if (eventCaller.Figure != null && eventCaller.Figure.Color.Equals(actualPlayerColor))
 			{
@@ -556,5 +573,19 @@ namespace ChessWPF.ViewModel
 			set { _TilesList = value; }
 		}
 
+
+		private bool _showPromotionView = false;
+		public bool ShowPromotionView
+		{
+			get { return _showPromotionView; }
+			set { SetProperty(ref _showPromotionView, value); }
+		}
+
+		private PromotionViewModel promotionViewModel;
+		public PromotionViewModel PromotionViewModel
+		{
+			get { return promotionViewModel; }
+			set { SetProperty(ref promotionViewModel, value); }
+		}
 	}
 }

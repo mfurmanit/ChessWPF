@@ -117,14 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Bishop" xml:space="preserve">
+    <value>Goniec</value>
+  </data>
   <data name="Dark_Player" xml:space="preserve">
     <value>Czarny</value>
   </data>
   <data name="End_Game_Label" xml:space="preserve">
     <value>ZAKOŃCZ GRĘ</value>
   </data>
+  <data name="King" xml:space="preserve">
+    <value>Król</value>
+  </data>
+  <data name="Knight" xml:space="preserve">
+    <value>Skoczek</value>
+  </data>
   <data name="Move_Title" xml:space="preserve">
     <value>Ruch wykonuje:</value>
+  </data>
+  <data name="Pawn" xml:space="preserve">
+    <value>Pionek</value>
   </data>
   <data name="Player_Seconds_120" xml:space="preserve">
     <value>120 sekund na ruch dla gracza</value>
@@ -137,6 +149,12 @@
   </data>
   <data name="Player_Seconds_60" xml:space="preserve">
     <value>60 sekund na ruch dla gracza</value>
+  </data>
+  <data name="Queen" xml:space="preserve">
+    <value>Hetman</value>
+  </data>
+  <data name="Rook" xml:space="preserve">
+    <value>Wieża</value>
   </data>
   <data name="Time_Left_Title" xml:space="preserve">
     <value>Pozostały czas:</value>
