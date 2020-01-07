@@ -11,35 +11,85 @@ using System.Windows.Input;
 
 namespace ChessWPF.ViewModel
 {
-    public class StartViewModel : Utils.BindableBase
+	/// <summary>
+	/// View Model for StartView.
+	/// It allow user to add names for the players and also select the maximum time for the move
+	/// </summary>
+	/// <seealso cref="ChessWPF.Utils.BindableBase" />
+	public class StartViewModel : Utils.BindableBase
     {
         private string player1;
         private string player2;
         private ComboBoxItem selectedItem;
-        public string Player1
+
+		/// <summary>
+		/// Gets or sets the name of the first player.
+		/// </summary>
+		/// <value>
+		/// The first player.
+		/// </value>
+		public string Player1
         {
             get => player1;
             set => SetProperty(ref player1, value);
         }
-        public string Player2
+
+		/// <summary>
+		/// Gets or sets the name of the second player.
+		/// </summary>
+		/// <value>
+		/// The second player.
+		/// </value>
+		public string Player2
         {
             get => player2;
             set => SetProperty(ref player2, value);
         }
 
-        public ComboBoxItem SelectedItem
+		/// <summary>
+		/// Gets or sets the selected item.
+		/// </summary>
+		/// <value>
+		/// The selected item.
+		/// </value>
+		public ComboBoxItem SelectedItem
         {
             get => selectedItem;
             set => SetProperty(ref selectedItem, value);
         }
 
-        public Model.Player WhitePlayer { get; set; } = new Model.Player("", Model.Constants.FigureColor.White);
-        public Model.Player DarkPlayer { get; set; } = new Model.Player("", Model.Constants.FigureColor.Dark);
+		/// <summary>
+		/// Gets or sets the white player.
+		/// </summary>
+		/// <value>
+		/// The white player.
+		/// </value>
+		public Model.Player WhitePlayer { get; set; } = new Model.Player("", Model.Constants.FigureColor.White);
 
-        public ICommand ClickCommand { get; private set; }
-        public event Action Click = delegate { };
+		/// <summary>
+		/// Gets or sets the dark player.
+		/// </summary>
+		/// <value>
+		/// The dark player.
+		/// </value>
+		public Model.Player DarkPlayer { get; set; } = new Model.Player("", Model.Constants.FigureColor.Dark);
 
-        public StartViewModel()
+		/// <summary>
+		/// Gets the click command.
+		/// </summary>
+		/// <value>
+		/// The click command.
+		/// </value>
+		public ICommand ClickCommand { get; private set; }
+		/// <summary>
+		/// Occurs when [click].
+		/// </summary>
+		public event Action Click = delegate { };
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="StartViewModel"/> class.
+		/// </summary>
+		public StartViewModel()
         {
             ClickCommand = new Utils.RelayCommand(StartClick);
         }

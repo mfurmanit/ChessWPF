@@ -1,6 +1,9 @@
 ﻿namespace ChessWPF.Model.Constants
 {
-    public enum FigureColor
+	/// <summary>
+	/// Define colors of the figures
+	/// </summary>
+	public enum FigureColor
     {
         Dark, White
     }

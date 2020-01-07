@@ -12,7 +12,12 @@ using System.Windows.Threading;
 
 namespace ChessWPF.ViewModel
 {
-    public class GameViewModel : Utils.BindableBase
+	/// <summary>
+	/// View Model for GameView
+	/// View show information about the game (e.g information about the players)
+	/// </summary>
+	/// <seealso cref="ChessWPF.Utils.BindableBase" />
+	public class GameViewModel : Utils.BindableBase
     {
         private Player whitePlayer;
         private Player darkPlayer;
@@ -21,10 +26,23 @@ namespace ChessWPF.ViewModel
         private int timer = 30;
         DispatcherTimer dispatcherTimer;
 
-        public ICommand ClickCommand { get; private set; }
-        public event Action Click = delegate { };
+		/// <summary>
+		/// Gets the click command.
+		/// </summary>
+		/// <value>
+		/// The click command.
+		/// </value>
+		public ICommand ClickCommand { get; private set; }
 
-        public GameViewModel() {
+		/// <summary>
+		/// Occurs when player whant to give up.
+		/// </summary>
+		public event Action Click = delegate { };
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="GameViewModel"/> class.
+		/// </summary>
+		public GameViewModel() {
             WhitePlayer = new Player(Properties.Resources.White_Player, FigureColor.White);
             DarkPlayer = new Player(Properties.Resources.Dark_Player, FigureColor.Dark);
             Mediator.Register("StartGame", StartGame);
@@ -53,7 +71,11 @@ namespace ChessWPF.ViewModel
             SetActualPlayer();
         }
 
-        public void StartGame(object message)
+		/// <summary>
+		/// Starts the game.
+		/// </summary>
+		/// <param name="message">The message.</param>
+		public void StartGame(object message)
         {
             List<Player> players = (List<Player>) message;
             WhitePlayer = players[0];
@@ -86,31 +108,61 @@ namespace ChessWPF.ViewModel
             }
         }
 
-        public Player WhitePlayer
+		/// <summary>
+		/// Gets or sets the white player.
+		/// </summary>
+		/// <value>
+		/// The white player.
+		/// </value>
+		public Player WhitePlayer
         {
             get => whitePlayer;
             set => SetProperty(ref whitePlayer, value);
         }
 
-        public Player DarkPlayer
+		/// <summary>
+		/// Gets or sets the dark player.
+		/// </summary>
+		/// <value>
+		/// The dark player.
+		/// </value>
+		public Player DarkPlayer
         {
             get => darkPlayer;
             set => SetProperty(ref darkPlayer, value);
         }
 
-        public Player ActualPlayer
+		/// <summary>
+		/// Gets or sets the actual player.
+		/// </summary>
+		/// <value>
+		/// The actual player.
+		/// </value>
+		public Player ActualPlayer
         {
             get => actualPlayer;
             set => SetProperty(ref actualPlayer, value);
         }
 
-        public int Timer
+		/// <summary>
+		/// Gets or sets the timer.
+		/// </summary>
+		/// <value>
+		/// The timer.
+		/// </value>
+		public int Timer
         {
             get => timer;
             set => SetProperty(ref timer, value);
         }
 
-        public int BaseTimer
+		/// <summary>
+		/// Gets or sets the base timer.
+		/// </summary>
+		/// <value>
+		/// The base timer.
+		/// </value>
+		public int BaseTimer
         {
             get => baseTimer;
             set => SetProperty(ref baseTimer, value);

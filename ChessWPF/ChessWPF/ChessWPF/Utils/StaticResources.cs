@@ -2,7 +2,10 @@
 
 namespace ChessWPF.Utils
 {
-    public static class StaticResources
+	/// <summary>
+	/// Defined static resources
+	/// </summary>
+	public static class StaticResources
     {
         public static SolidColorBrush BLACK_TILE_COLOR = Brushes.LightSteelBlue;
         public static SolidColorBrush WHITE_TILE_COLOR = Brushes.White;

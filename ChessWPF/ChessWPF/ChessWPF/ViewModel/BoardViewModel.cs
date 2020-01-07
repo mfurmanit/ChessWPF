@@ -9,17 +9,25 @@ using System.Windows.Input;
 
 namespace ChessWPF.ViewModel
 {
+	/// <summary>
+	/// BoardViewModel - View model for Board.
+	/// </summary>
+	/// <seealso cref="ChessWPF.Utils.BindableBase" />
 	public class BoardViewModel : BindableBase
 	{
 		private List<BoardFigure> _FiguresList;
 		private List<BoardTileViewModel> _TilesList;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="BoardViewModel"/> class.
+		/// </summary>
 		public BoardViewModel()
 		{
 			InitializeFiguresList();
 			GenerateTilesList();
 			Mediator.Register("ChangePlayer", ChangePlayer);
 		}
+
 
 		private void InitializeFiguresList()
 		{
@@ -556,17 +564,33 @@ namespace ChessWPF.ViewModel
 			return caller.Figure == null ? false : caller.Figure.Color == selectedTile.Figure.Color;
 		}
 
+		/// <summary>
+		/// Change Player
+		/// </summary>
+		/// <param name="message"></param>
 		public void ChangePlayer(object message)
 		{
 			actualPlayerColor = actualPlayerColor == FigureColor.Dark ? FigureColor.White : FigureColor.Dark;
 		}
 
+		/// <summary>
+		/// Gets or sets the list of the figures.
+		/// </summary>
+		/// <value>
+		/// The list of the figures.
+		/// </value>
 		public List<BoardFigure> BoardFigures
 		{
 			get { return _FiguresList; }
 			set { _FiguresList = value; }
 		}
 
+		/// <summary>
+		/// Gets or sets the list of the tiles.
+		/// </summary>
+		/// <value>
+		/// The list of the tiles.
+		/// </value>
 		public List<BoardTileViewModel> BoardTiles
 		{
 			get { return _TilesList; }
@@ -575,6 +599,13 @@ namespace ChessWPF.ViewModel
 
 
 		private bool _showPromotionView = false;
+
+		/// <summary>
+		/// Gets or sets a value indicating whether show PromotionView.
+		/// </summary>
+		/// <value>
+		///   <c>true</c> to show PromotionView; otherwise, <c>false</c>.
+		/// </value>
 		public bool ShowPromotionView
 		{
 			get { return _showPromotionView; }
@@ -582,6 +613,13 @@ namespace ChessWPF.ViewModel
 		}
 
 		private PromotionViewModel promotionViewModel;
+
+		/// <summary>
+		/// Gets or sets the promotion view model.
+		/// </summary>
+		/// <value>
+		/// The promotion view model.
+		/// </value>
 		public PromotionViewModel PromotionViewModel
 		{
 			get { return promotionViewModel; }

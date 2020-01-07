@@ -7,7 +7,13 @@ using System.Windows.Media.Imaging;
 
 namespace ChessWPF.ViewModel
 {
-    public class BoardTileViewModel : Utils.BindableBase, IEquatable<BoardTileViewModel>
+	/// <summary>
+	/// BoardTileViewModel - View model for BoardTileView.
+	/// Defines how tile should look like and also defines behavior of the tile
+	/// </summary>
+	/// <seealso cref="ChessWPF.Utils.BindableBase" />
+	/// <seealso cref="System.IEquatable{ChessWPF.ViewModel.BoardTileViewModel}" />
+	public class BoardTileViewModel : Utils.BindableBase, IEquatable<BoardTileViewModel>
     {
         private int index;
         private SolidColorBrush background;
@@ -19,16 +25,49 @@ namespace ChessWPF.ViewModel
         private ImageSource figureImage;
         private Position position;
 
-        public ICommand ClickCommand { get; private set; }
-        public event Action<BoardTileViewModel> Click = delegate { };
+		/// <summary>
+		/// Gets the click command.
+		/// </summary>
+		/// <value>
+		/// The click command.
+		/// </value>
+		public ICommand ClickCommand { get; private set; }
+		/// <summary>
+		/// Occurs when [click].
+		/// </summary>
+		public event Action<BoardTileViewModel> Click = delegate { };
 
-        public ICommand MouseEnterCommand { get; private set; }
-        public event Action<BoardTileViewModel> MouseEnter = delegate { };
+		/// <summary>
+		/// Gets the mouse enter command.
+		/// </summary>
+		/// <value>
+		/// The mouse enter command.
+		/// </value>
+		public ICommand MouseEnterCommand { get; private set; }
+		/// <summary>
+		/// Occurs when [mouse enter].
+		/// </summary>
+		public event Action<BoardTileViewModel> MouseEnter = delegate { };
 
-        public ICommand MouseLeaveCommand { get; private set; }
-        public event Action<BoardTileViewModel> MouseLeave = delegate { };
+		/// <summary>
+		/// Gets the mouse leave command.
+		/// </summary>
+		/// <value>
+		/// The mouse leave command.
+		/// </value>
+		public ICommand MouseLeaveCommand { get; private set; }
+		/// <summary>
+		/// Occurs when [mouse leave].
+		/// </summary>
+		public event Action<BoardTileViewModel> MouseLeave = delegate { };
 
-        public BoardTileViewModel(BoardFigure figure, int index, Position position)
+		/// <summary>
+		/// Initializes a new instance of the <see cref="BoardTileViewModel"/> class.
+		/// </summary>
+		/// <param name="figure">The figure.</param>
+		/// <param name="index">The index.</param>
+		/// <param name="position">The position.</param>
+		public BoardTileViewModel(BoardFigure figure, int index, Position position)
         {
 
             bool isWhite = false;
@@ -52,7 +91,7 @@ namespace ChessWPF.ViewModel
             MouseLeaveCommand = new RelayCommand(OnMouseLeave);
         }
 
-        private void OnClick()
+		private void OnClick()
         {
             Click(this);
         }
@@ -67,48 +106,97 @@ namespace ChessWPF.ViewModel
             MouseLeave(this);
         }
 
-        public bool Equals(BoardTileViewModel other)
+		/// <summary>
+		/// Indicates whether the current object is equal to another object of the same type.
+		/// </summary>
+		/// <param name="other">An object to compare with this object.</param>
+		/// <returns>
+		///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
+		/// </returns>
+		public bool Equals(BoardTileViewModel other)
         {
             return this.Index == other.Index && this.Position == other.Position;
         }
 
-        public int Index
+		/// <summary>
+		/// Gets or sets the index.
+		/// </summary>
+		/// <value>
+		/// The index.
+		/// </value>
+		public int Index
         {
             get => index;
             set => SetProperty(ref index, value);
         }
 
-        public SolidColorBrush Background
+		/// <summary>
+		/// Gets or sets the background.
+		/// </summary>
+		/// <value>
+		/// The background.
+		/// </value>
+		public SolidColorBrush Background
         {
             get => background;
             set => SetProperty(ref background, value);
         }
 
-        public SolidColorBrush Stroke
+		/// <summary>
+		/// Gets or sets the stroke.
+		/// </summary>
+		/// <value>
+		/// The stroke.
+		/// </value>
+		public SolidColorBrush Stroke
         {
             get => stroke;
             set => SetProperty(ref stroke, value);
         }
 
-        public Cursor Cursor
+		/// <summary>
+		/// Gets or sets the cursor.
+		/// </summary>
+		/// <value>
+		/// The cursor.
+		/// </value>
+		public Cursor Cursor
         {
             get => cursor;
             set => SetProperty(ref cursor, value);
         }
 
-        public int StrokeThickness
+		/// <summary>
+		/// Gets or sets the stroke thickness.
+		/// </summary>
+		/// <value>
+		/// The stroke thickness.
+		/// </value>
+		public int StrokeThickness
         {
             get => strokeThickness;
             set => SetProperty(ref strokeThickness, value);
         }
 
-        public bool IsActive
+		/// <summary>
+		/// Gets or sets a value indicating whether this instance is active.
+		/// </summary>
+		/// <value>
+		///   <c>true</c> if this instance is active; otherwise, <c>false</c>.
+		/// </value>
+		public bool IsActive
         {
             get => isActive;
             set => SetProperty(ref isActive, value);
         }
 
-        public BoardFigure Figure
+		/// <summary>
+		/// Gets or sets the figure.
+		/// </summary>
+		/// <value>
+		/// The figure.
+		/// </value>
+		public BoardFigure Figure
         {
             get => figure;
             set
@@ -182,13 +270,25 @@ namespace ChessWPF.ViewModel
 			return new BitmapImage(new Uri(path, UriKind.Relative));
 		}
 
+		/// <summary>
+		/// Gets or sets the figure image.
+		/// </summary>
+		/// <value>
+		/// The image source.
+		/// </value>
 		public ImageSource ImageSource
         {
             get => figureImage;
             set => SetProperty(ref figureImage, value);
         }
 
-        public Position Position
+		/// <summary>
+		/// Gets or sets the position on the board.
+		/// </summary>
+		/// <value>
+		/// The position.
+		/// </value>
+		public Position Position
         {
             get => position;
             set => SetProperty(ref position, value);

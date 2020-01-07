@@ -6,11 +6,19 @@ using System.Threading.Tasks;
 
 namespace ChessWPF.Utils
 {
-    static public class Mediator
+	/// <summary>
+	/// Utilities that notify subscribers that some event occured
+	/// </summary>
+	static public class Mediator
     {
         static IDictionary<string, List<Action<object>>> pl_dict = new Dictionary<string, List<Action<object>>>();
 
-        static public void Register(string token, Action<object> callback)
+		/// <summary>
+		/// Registers the specified token.
+		/// </summary>
+		/// <param name="token">The token.</param>
+		/// <param name="callback">The callback.</param>
+		static public void Register(string token, Action<object> callback)
         {
             if (!pl_dict.ContainsKey(token))
             {
@@ -28,20 +36,33 @@ namespace ChessWPF.Utils
             }
         }
 
-        static public void Unregister(string token, Action<object> callback)
+		/// <summary>
+		/// Unregisters the specified token.
+		/// </summary>
+		/// <param name="token">The token.</param>
+		/// <param name="callback">The callback.</param>
+		static public void Unregister(string token, Action<object> callback)
         {
             if (pl_dict.ContainsKey(token))
                 pl_dict[token].Remove(callback);
         }
 
-        static public void NotifyColleagues(string token, object args)
+		/// <summary>
+		/// Notifies the colleagues.
+		/// </summary>
+		/// <param name="token">The token.</param>
+		/// <param name="args">The arguments.</param>
+		static public void NotifyColleagues(string token, object args)
         {
             if (pl_dict.ContainsKey(token))
                 foreach (var callback in pl_dict[token])
                     callback(args);
         }
 
-        static public void ResetMediator()
+		/// <summary>
+		/// Resets the mediator.
+		/// </summary>
+		static public void ResetMediator()
         {
             pl_dict.Clear();
         }
