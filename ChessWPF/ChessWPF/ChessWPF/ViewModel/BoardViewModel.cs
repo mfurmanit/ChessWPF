@@ -500,29 +500,14 @@ namespace ChessWPF.ViewModel
 					possiblePositions.Add(position);
 			}
 
+			AddCastlingPositionForWhite(possiblePositions);
+			AddCastlingPositionForDark(possiblePositions);
 
-			if (selectedTile.Figure.Color == FigureColor.White && selectedTile.Figure.Position.ToString() == "E1")
-			{
-				var rook = GetFigureFromPosition("H1");
-				if (rook != null && rook.Type == FigureType.Rook && rook.Color == FigureColor.White)
-				{
-					bool castlingPossible = GetFigureFromPosition("F1") == null;
-					castlingPossible = castlingPossible && GetFigureFromPosition("G1") == null;
-					if (castlingPossible)
-						possiblePositions.Add(new Position("G1"));
-				}
+			return possiblePositions;
+		}
 
-				rook = GetFigureFromPosition(new Position("A1"));
-				if (rook != null && rook.Type == FigureType.Rook && rook.Color == FigureColor.White)
-				{
-					bool castlingPossible = GetFigureFromPosition("B1") == null;
-					castlingPossible = castlingPossible && GetFigureFromPosition("C1") == null;
-					castlingPossible = castlingPossible && GetFigureFromPosition("D1") == null;
-					if (castlingPossible)
-						possiblePositions.Add(new Position("C1"));
-				}
-			}
-
+		private void AddCastlingPositionForDark(List<Position> possiblePositions)
+		{
 			if (selectedTile.Figure.Color == FigureColor.Dark && selectedTile.Figure.Position.ToString() == "E8")
 			{
 				var rook = GetFigureFromPosition("H8");
@@ -544,8 +529,31 @@ namespace ChessWPF.ViewModel
 						possiblePositions.Add(new Position("C8"));
 				}
 			}
+		}
 
-			return possiblePositions;
+		private void AddCastlingPositionForWhite(List<Position> possiblePositions)
+		{
+			if (selectedTile.Figure.Color == FigureColor.White && selectedTile.Figure.Position.ToString() == "E1")
+			{
+				var rook = GetFigureFromPosition("H1");
+				if (rook != null && rook.Type == FigureType.Rook && rook.Color == FigureColor.White)
+				{
+					bool castlingPossible = GetFigureFromPosition("F1") == null;
+					castlingPossible = castlingPossible && GetFigureFromPosition("G1") == null;
+					if (castlingPossible)
+						possiblePositions.Add(new Position("G1"));
+				}
+
+				rook = GetFigureFromPosition(new Position("A1"));
+				if (rook != null && rook.Type == FigureType.Rook && rook.Color == FigureColor.White)
+				{
+					bool castlingPossible = GetFigureFromPosition("B1") == null;
+					castlingPossible = castlingPossible && GetFigureFromPosition("C1") == null;
+					castlingPossible = castlingPossible && GetFigureFromPosition("D1") == null;
+					if (castlingPossible)
+						possiblePositions.Add(new Position("C1"));
+				}
+			}
 		}
 
 		private Position ResolveFigurePosition(BoardTileViewModel caller)
