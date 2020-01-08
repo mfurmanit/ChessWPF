@@ -4,7 +4,7 @@
 	/// Define colors of the figures
 	/// </summary>
 	public enum FigureColor
-    {
-        Dark, White
-    }
+	{
+		Dark, White
+	}
 }

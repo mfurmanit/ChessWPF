@@ -17,10 +17,10 @@ namespace ChessWPF.ViewModel
 	/// </summary>
 	/// <seealso cref="ChessWPF.Utils.BindableBase" />
 	public class StartViewModel : Utils.BindableBase
-    {
-        private string player1;
-        private string player2;
-        private ComboBoxItem selectedItem;
+	{
+		private string player1;
+		private string player2;
+		private ComboBoxItem selectedItem;
 
 		/// <summary>
 		/// Gets or sets the name of the first player.
@@ -29,10 +29,10 @@ namespace ChessWPF.ViewModel
 		/// The first player.
 		/// </value>
 		public string Player1
-        {
-            get => player1;
-            set => SetProperty(ref player1, value);
-        }
+		{
+			get => player1;
+			set => SetProperty(ref player1, value);
+		}
 
 		/// <summary>
 		/// Gets or sets the name of the second player.
@@ -41,10 +41,10 @@ namespace ChessWPF.ViewModel
 		/// The second player.
 		/// </value>
 		public string Player2
-        {
-            get => player2;
-            set => SetProperty(ref player2, value);
-        }
+		{
+			get => player2;
+			set => SetProperty(ref player2, value);
+		}
 
 		/// <summary>
 		/// Gets or sets the selected item.
@@ -53,10 +53,10 @@ namespace ChessWPF.ViewModel
 		/// The selected item.
 		/// </value>
 		public ComboBoxItem SelectedItem
-        {
-            get => selectedItem;
-            set => SetProperty(ref selectedItem, value);
-        }
+		{
+			get => selectedItem;
+			set => SetProperty(ref selectedItem, value);
+		}
 
 		/// <summary>
 		/// Gets or sets the white player.
@@ -90,33 +90,33 @@ namespace ChessWPF.ViewModel
 		/// Initializes a new instance of the <see cref="StartViewModel"/> class.
 		/// </summary>
 		public StartViewModel()
-        {
-            ClickCommand = new Utils.RelayCommand(StartClick);
-        }
+		{
+			ClickCommand = new Utils.RelayCommand(StartClick);
+		}
 
-        private void StartClick()
-        {
-            if (string.IsNullOrWhiteSpace(Player1))
-                Player1 = Properties.Resources.White_Player;
+		private void StartClick()
+		{
+			if (string.IsNullOrWhiteSpace(Player1))
+				Player1 = Properties.Resources.White_Player;
 
-            if (string.IsNullOrWhiteSpace(Player2))
-                Player2 = Properties.Resources.Dark_Player;
-            
+			if (string.IsNullOrWhiteSpace(Player2))
+				Player2 = Properties.Resources.Dark_Player;
 
-            int timer = SelectedItem == null ? 30 : Convert.ToInt32(SelectedItem.Name.Substring(1));
-            WhitePlayer.Name = Player1;
-            DarkPlayer.Name = Player2;
-            WhitePlayer.SecondsForMove = timer;
-            DarkPlayer.SecondsForMove = timer;
 
-            List<Player> players = new List<Player>
-            {
-                WhitePlayer, DarkPlayer
-            };
+			int timer = SelectedItem == null ? 30 : Convert.ToInt32(SelectedItem.Name.Substring(1));
+			WhitePlayer.Name = Player1;
+			DarkPlayer.Name = Player2;
+			WhitePlayer.SecondsForMove = timer;
+			DarkPlayer.SecondsForMove = timer;
 
-            Mediator.NotifyColleagues("StartGame", players);
+			List<Player> players = new List<Player>
+			{
+				WhitePlayer, DarkPlayer
+			};
 
-            Click();
-        }
-    }
+			Mediator.NotifyColleagues("StartGame", players);
+
+			Click();
+		}
+	}
 }

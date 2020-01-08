@@ -112,82 +112,88 @@ namespace ChessWPF.ViewModel
 				selectedTile.Figure = null;
 				selectedTile = null;
 
-
-				//castling
-				if (selectedFigure.Type == FigureType.King)
-				{
-					if (selectedFigure.Color == FigureColor.White && selectedFigure.Position.ToString() == "E1")
-					{
-						if (eventCaller.Position.ToString() == "G1")
-						{
-							var rookOldTile = GetTileViewModelFromPosition("H1");
-							var rookNewTile = GetTileViewModelFromPosition("F1");
-							rookNewTile.Figure = rookOldTile.Figure;
-							rookNewTile.Figure.Position = rookNewTile.Position;
-							rookOldTile.Figure = null;
-						}
-						else if (eventCaller.Position.ToString() == "C1")
-						{
-							var rookOldTile = GetTileViewModelFromPosition("A1");
-							var rookNewTile = GetTileViewModelFromPosition("D1");
-							rookNewTile.Figure = rookOldTile.Figure;
-							rookNewTile.Figure.Position = rookNewTile.Position;
-							rookOldTile.Figure = null;
-						}
-					}
-					else if (selectedFigure.Color == FigureColor.Dark && selectedFigure.Position.ToString() == "E8")
-					{
-						if (eventCaller.Position.ToString() == "G8")
-						{
-							var rookOldTile = GetTileViewModelFromPosition("H8");
-							var rookNewTile = GetTileViewModelFromPosition("F8");
-							rookNewTile.Figure = rookOldTile.Figure;
-							rookNewTile.Figure.Position = rookNewTile.Position;
-							rookOldTile.Figure = null;
-						}
-						else if (eventCaller.Position.ToString() == "C8")
-						{
-							var rookOldTile = GetTileViewModelFromPosition("A8");
-							var rookNewTile = GetTileViewModelFromPosition("D8");
-							rookNewTile.Figure = rookOldTile.Figure;
-							rookNewTile.Figure.Position = rookNewTile.Position;
-							rookOldTile.Figure = null;
-						}
-					}
-				}
+				Castling(eventCaller, selectedFigure);
 
 				selectedFigure.Position = eventCaller.Position;
 				eventCaller.Figure = selectedFigure;
 				SetBaseStyle(eventCaller);
 
-
 				if (oldFigure != null)
 					BoardFigures.Remove(oldFigure);
 
-				//promotion
-				if (selectedFigure.Type == FigureType.Pawn && (eventCaller.Position.Row == 0 || eventCaller.Position.Row == 7))
-				{
-					PromotionViewModel = new PromotionViewModel(selectedFigure);
-					PromotionViewModel.Promotion += () =>
-					{
-						var fig = new BoardFigure(PromotionViewModel.SelectedFigure.Type, selectedFigure.Color, eventCaller.Position);
-						BoardFigures.Remove(eventCaller.Figure);
-						eventCaller.Figure = fig;
-						ShowPromotionView = false;
-						Mediator.NotifyColleagues("ChangePlayer", actualPlayerColor);
-					};
-					ShowPromotionView = true;
-				}
+				if (IsPromotion(eventCaller, selectedFigure))
+					ShowPromotion(eventCaller, selectedFigure);
 				else
-				{
 					Mediator.NotifyColleagues("ChangePlayer", actualPlayerColor);
-				}
 			}
 			else if (eventCaller.Figure != null && eventCaller.Figure.Color.Equals(actualPlayerColor))
 			{
 				selectedTile = eventCaller;
 				CheckSelectedStyle(eventCaller);
 				GeneratePossiblePositions(selectedTile.Figure);
+			}
+		}
+
+		private bool IsPromotion(BoardTileViewModel eventCaller, BoardFigure selectedFigure)
+		{
+			return selectedFigure.Type == FigureType.Pawn && (eventCaller.Position.Row == 0 || eventCaller.Position.Row == 7);
+		}
+		private void ShowPromotion(BoardTileViewModel eventCaller, BoardFigure selectedFigure)
+		{
+			PromotionViewModel = new PromotionViewModel(selectedFigure);
+			PromotionViewModel.Promotion += () =>
+			{
+				var fig = new BoardFigure(PromotionViewModel.SelectedFigure.Type, selectedFigure.Color, eventCaller.Position);
+				BoardFigures.Remove(eventCaller.Figure);
+				eventCaller.Figure = fig;
+				ShowPromotionView = false;
+				Mediator.NotifyColleagues("ChangePlayer", actualPlayerColor);
+			};
+			ShowPromotionView = true;
+		}
+
+		private void Castling(BoardTileViewModel eventCaller, BoardFigure selectedFigure)
+		{
+			if (selectedFigure.Type == FigureType.King)
+			{
+				if (selectedFigure.Color == FigureColor.White && selectedFigure.Position.ToString() == "E1")
+				{
+					if (eventCaller.Position.ToString() == "G1")
+					{
+						var rookOldTile = GetTileViewModelFromPosition("H1");
+						var rookNewTile = GetTileViewModelFromPosition("F1");
+						rookNewTile.Figure = rookOldTile.Figure;
+						rookNewTile.Figure.Position = rookNewTile.Position;
+						rookOldTile.Figure = null;
+					}
+					else if (eventCaller.Position.ToString() == "C1")
+					{
+						var rookOldTile = GetTileViewModelFromPosition("A1");
+						var rookNewTile = GetTileViewModelFromPosition("D1");
+						rookNewTile.Figure = rookOldTile.Figure;
+						rookNewTile.Figure.Position = rookNewTile.Position;
+						rookOldTile.Figure = null;
+					}
+				}
+				else if (selectedFigure.Color == FigureColor.Dark && selectedFigure.Position.ToString() == "E8")
+				{
+					if (eventCaller.Position.ToString() == "G8")
+					{
+						var rookOldTile = GetTileViewModelFromPosition("H8");
+						var rookNewTile = GetTileViewModelFromPosition("F8");
+						rookNewTile.Figure = rookOldTile.Figure;
+						rookNewTile.Figure.Position = rookNewTile.Position;
+						rookOldTile.Figure = null;
+					}
+					else if (eventCaller.Position.ToString() == "C8")
+					{
+						var rookOldTile = GetTileViewModelFromPosition("A8");
+						var rookNewTile = GetTileViewModelFromPosition("D8");
+						rookNewTile.Figure = rookOldTile.Figure;
+						rookNewTile.Figure.Position = rookNewTile.Position;
+						rookOldTile.Figure = null;
+					}
+				}
 			}
 		}
 

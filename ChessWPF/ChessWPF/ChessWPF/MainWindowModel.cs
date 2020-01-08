@@ -15,35 +15,35 @@ namespace ChessWPF
 	/// </summary>
 	/// <seealso cref="ChessWPF.Utils.BindableBase" />
 	public class MainWindowModel : Utils.BindableBase
-    {
-        private BoardViewModel boardViewModel = new BoardViewModel();
-        private GameViewModel gameViewModel = new GameViewModel();
-        private StartViewModel startViewModel = new StartViewModel();
-        private bool showStartView = true;
+	{
+		private BoardViewModel boardViewModel = new BoardViewModel();
+		private GameViewModel gameViewModel = new GameViewModel();
+		private StartViewModel startViewModel = new StartViewModel();
+		private bool showStartView = true;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MainWindowModel"/> class.
 		/// </summary>
 		public MainWindowModel()
-        {
-            startViewModel.Click += StartViewModel_Start;
-            Mediator.Register("EndGame", EndGame);
-        }
+		{
+			startViewModel.Click += StartViewModel_Start;
+			Mediator.Register("EndGame", EndGame);
+		}
 
-        private void StartViewModel_Start()
-        {
-            gameViewModel.WhitePlayer = startViewModel.WhitePlayer;
-            gameViewModel.DarkPlayer = startViewModel.DarkPlayer;
-            ShowStartView = false;
-        }
+		private void StartViewModel_Start()
+		{
+			gameViewModel.WhitePlayer = startViewModel.WhitePlayer;
+			gameViewModel.DarkPlayer = startViewModel.DarkPlayer;
+			ShowStartView = false;
+		}
 
-        private void EndGame(object message)
-        {
-            ShowStartView = true;
-            StartViewModel.Player1 = "";
-            StartViewModel.Player2 = "";
-            StartViewModel.SelectedItem = null;
-        }
+		private void EndGame(object message)
+		{
+			ShowStartView = true;
+			StartViewModel.Player1 = "";
+			StartViewModel.Player2 = "";
+			StartViewModel.SelectedItem = null;
+		}
 
 		/// <summary>
 		/// Gets or sets the board view model.
@@ -52,10 +52,10 @@ namespace ChessWPF
 		/// The board view model.
 		/// </value>
 		public BoardViewModel BoardViewModel
-        {
-            get => boardViewModel;
-            set => SetProperty(ref boardViewModel, value);
-        }
+		{
+			get => boardViewModel;
+			set => SetProperty(ref boardViewModel, value);
+		}
 
 		/// <summary>
 		/// Gets or sets the game view model.
@@ -64,10 +64,10 @@ namespace ChessWPF
 		/// The game view model.
 		/// </value>
 		public GameViewModel GameViewModel
-        {
-            get => gameViewModel;
-            set => SetProperty(ref gameViewModel, value);
-        }
+		{
+			get => gameViewModel;
+			set => SetProperty(ref gameViewModel, value);
+		}
 
 		/// <summary>
 		/// Gets or sets the start view model.
@@ -76,10 +76,10 @@ namespace ChessWPF
 		/// The start view model.
 		/// </value>
 		public StartViewModel StartViewModel
-        {
-            get => startViewModel;
-            set => SetProperty(ref startViewModel, value);
-        }
+		{
+			get => startViewModel;
+			set => SetProperty(ref startViewModel, value);
+		}
 
 		/// <summary>
 		/// Gets or sets a value indicating whether [show start view].
@@ -88,10 +88,10 @@ namespace ChessWPF
 		///   <c>true</c> if [show start view]; otherwise, <c>false</c>.
 		/// </value>
 		public bool ShowStartView
-        {
-            get => showStartView;
-            set => SetProperty(ref showStartView, value);
-        }
+		{
+			get => showStartView;
+			set => SetProperty(ref showStartView, value);
+		}
 
-    }
+	}
 }

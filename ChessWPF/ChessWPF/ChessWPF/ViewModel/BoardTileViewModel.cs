@@ -14,16 +14,16 @@ namespace ChessWPF.ViewModel
 	/// <seealso cref="ChessWPF.Utils.BindableBase" />
 	/// <seealso cref="System.IEquatable{ChessWPF.ViewModel.BoardTileViewModel}" />
 	public class BoardTileViewModel : Utils.BindableBase, IEquatable<BoardTileViewModel>
-    {
-        private int index;
-        private SolidColorBrush background;
-        private SolidColorBrush stroke;
-        private Cursor cursor = Cursors.Arrow;
-        private int strokeThickness;
-        private bool isActive;
-        private BoardFigure figure;
-        private ImageSource figureImage;
-        private Position position;
+	{
+		private int index;
+		private SolidColorBrush background;
+		private SolidColorBrush stroke;
+		private Cursor cursor = Cursors.Arrow;
+		private int strokeThickness;
+		private bool isActive;
+		private BoardFigure figure;
+		private ImageSource figureImage;
+		private Position position;
 
 		/// <summary>
 		/// Gets the click command.
@@ -68,43 +68,43 @@ namespace ChessWPF.ViewModel
 		/// <param name="index">The index.</param>
 		/// <param name="position">The position.</param>
 		public BoardTileViewModel(BoardFigure figure, int index, Position position)
-        {
+		{
 
-            bool isWhite = false;
-            int idx = index / 8;
-            if (idx % 2 == 0)
-                isWhite = index % 2 == 0;
-            else
-                isWhite = index % 2 == 1;
+			bool isWhite = false;
+			int idx = index / 8;
+			if (idx % 2 == 0)
+				isWhite = index % 2 == 0;
+			else
+				isWhite = index % 2 == 1;
 
-            Background = isWhite ? StaticResources.WHITE_TILE_COLOR : StaticResources.BLACK_TILE_COLOR;
-            Stroke = StaticResources.BORDER_TILE_COLOR;
-            StrokeThickness = 1;
+			Background = isWhite ? StaticResources.WHITE_TILE_COLOR : StaticResources.BLACK_TILE_COLOR;
+			Stroke = StaticResources.BORDER_TILE_COLOR;
+			StrokeThickness = 1;
 
-            IsActive = false;
-            Index = index;
-            Figure = figure;
-            Position = position;
+			IsActive = false;
+			Index = index;
+			Figure = figure;
+			Position = position;
 
-            ClickCommand = new RelayCommand(OnClick);
-            MouseEnterCommand = new RelayCommand(OnMouseEnter);
-            MouseLeaveCommand = new RelayCommand(OnMouseLeave);
-        }
+			ClickCommand = new RelayCommand(OnClick);
+			MouseEnterCommand = new RelayCommand(OnMouseEnter);
+			MouseLeaveCommand = new RelayCommand(OnMouseLeave);
+		}
 
 		private void OnClick()
-        {
-            Click(this);
-        }
+		{
+			Click(this);
+		}
 
-        private void OnMouseEnter()
-        {
-            MouseEnter(this);
-        }
+		private void OnMouseEnter()
+		{
+			MouseEnter(this);
+		}
 
-        private void OnMouseLeave()
-        {
-            MouseLeave(this);
-        }
+		private void OnMouseLeave()
+		{
+			MouseLeave(this);
+		}
 
 		/// <summary>
 		/// Indicates whether the current object is equal to another object of the same type.
@@ -114,9 +114,9 @@ namespace ChessWPF.ViewModel
 		///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
 		/// </returns>
 		public bool Equals(BoardTileViewModel other)
-        {
-            return this.Index == other.Index && this.Position == other.Position;
-        }
+		{
+			return this.Index == other.Index && this.Position == other.Position;
+		}
 
 		/// <summary>
 		/// Gets or sets the index.
@@ -125,10 +125,10 @@ namespace ChessWPF.ViewModel
 		/// The index.
 		/// </value>
 		public int Index
-        {
-            get => index;
-            set => SetProperty(ref index, value);
-        }
+		{
+			get => index;
+			set => SetProperty(ref index, value);
+		}
 
 		/// <summary>
 		/// Gets or sets the background.
@@ -137,10 +137,10 @@ namespace ChessWPF.ViewModel
 		/// The background.
 		/// </value>
 		public SolidColorBrush Background
-        {
-            get => background;
-            set => SetProperty(ref background, value);
-        }
+		{
+			get => background;
+			set => SetProperty(ref background, value);
+		}
 
 		/// <summary>
 		/// Gets or sets the stroke.
@@ -149,10 +149,10 @@ namespace ChessWPF.ViewModel
 		/// The stroke.
 		/// </value>
 		public SolidColorBrush Stroke
-        {
-            get => stroke;
-            set => SetProperty(ref stroke, value);
-        }
+		{
+			get => stroke;
+			set => SetProperty(ref stroke, value);
+		}
 
 		/// <summary>
 		/// Gets or sets the cursor.
@@ -161,10 +161,10 @@ namespace ChessWPF.ViewModel
 		/// The cursor.
 		/// </value>
 		public Cursor Cursor
-        {
-            get => cursor;
-            set => SetProperty(ref cursor, value);
-        }
+		{
+			get => cursor;
+			set => SetProperty(ref cursor, value);
+		}
 
 		/// <summary>
 		/// Gets or sets the stroke thickness.
@@ -173,10 +173,10 @@ namespace ChessWPF.ViewModel
 		/// The stroke thickness.
 		/// </value>
 		public int StrokeThickness
-        {
-            get => strokeThickness;
-            set => SetProperty(ref strokeThickness, value);
-        }
+		{
+			get => strokeThickness;
+			set => SetProperty(ref strokeThickness, value);
+		}
 
 		/// <summary>
 		/// Gets or sets a value indicating whether this instance is active.
@@ -185,10 +185,10 @@ namespace ChessWPF.ViewModel
 		///   <c>true</c> if this instance is active; otherwise, <c>false</c>.
 		/// </value>
 		public bool IsActive
-        {
-            get => isActive;
-            set => SetProperty(ref isActive, value);
-        }
+		{
+			get => isActive;
+			set => SetProperty(ref isActive, value);
+		}
 
 		/// <summary>
 		/// Gets or sets the figure.
@@ -197,17 +197,17 @@ namespace ChessWPF.ViewModel
 		/// The figure.
 		/// </value>
 		public BoardFigure Figure
-        {
-            get => figure;
-            set
-            {
-                SetProperty(ref figure, value);
+		{
+			get => figure;
+			set
+			{
+				SetProperty(ref figure, value);
 				if (figure != null)
 					ImageSource = GetFigureBitmapImage();
 				else
 					ImageSource = null;
-            }
-        }
+			}
+		}
 
 		private BitmapImage GetFigureBitmapImage()
 		{
@@ -277,10 +277,10 @@ namespace ChessWPF.ViewModel
 		/// The image source.
 		/// </value>
 		public ImageSource ImageSource
-        {
-            get => figureImage;
-            set => SetProperty(ref figureImage, value);
-        }
+		{
+			get => figureImage;
+			set => SetProperty(ref figureImage, value);
+		}
 
 		/// <summary>
 		/// Gets or sets the position on the board.
@@ -289,9 +289,9 @@ namespace ChessWPF.ViewModel
 		/// The position.
 		/// </value>
 		public Position Position
-        {
-            get => position;
-            set => SetProperty(ref position, value);
-        }
-    }
+		{
+			get => position;
+			set => SetProperty(ref position, value);
+		}
+	}
 }

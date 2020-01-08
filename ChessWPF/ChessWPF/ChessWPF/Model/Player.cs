@@ -12,16 +12,17 @@ namespace ChessWPF.Model
 	/// </summary>
 	/// <seealso cref="System.IEquatable{ChessWPF.Model.Player}" />
 	public class Player : IEquatable<Player>
-    {
+	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Player"/> class.
 		/// </summary>
 		/// <param name="name">The name.</param>
 		/// <param name="selectedColor">Color of the selected.</param>
-		public Player(string name, FigureColor selectedColor) {
-            Name = name;
-            SelectedColor = selectedColor;
-        }
+		public Player(string name, FigureColor selectedColor)
+		{
+			Name = name;
+			SelectedColor = selectedColor;
+		}
 
 		/// <summary>
 		/// Gets or sets the name.
@@ -55,9 +56,9 @@ namespace ChessWPF.Model
 		///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
 		/// </returns>
 		public bool Equals(Player other)
-        {
-            return other == null ? false : Name.Equals(other.Name) && SelectedColor == other.SelectedColor;
-        }
+		{
+			return other == null ? false : Name.Equals(other.Name) && SelectedColor == other.SelectedColor;
+		}
 
-    }
+	}
 }

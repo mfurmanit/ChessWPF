@@ -68,5 +68,5 @@ namespace ChessWPF.Model
 		/// The possible positions.
 		/// </value>
 		public List<Position> PossiblePositions { get; set; } = new List<Position>();
-    }
+	}
 }

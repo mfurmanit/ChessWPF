@@ -4,7 +4,7 @@
 	/// Define type of the figures
 	/// </summary>
 	public enum FigureType
-    {
-        Pawn, Knight, Bishop, Queen, King, Rook
-    }
+	{
+		Pawn, Knight, Bishop, Queen, King, Rook
+	}
 }
