@@ -9,17 +9,25 @@ using System.Windows.Input;
 
 namespace ChessWPF.ViewModel
 {
-	public class BoardViewModel
+	/// <summary>
+	/// BoardViewModel - View model for Board.
+	/// </summary>
+	/// <seealso cref="ChessWPF.Utils.BindableBase" />
+	public class BoardViewModel : BindableBase
 	{
 		private List<BoardFigure> _FiguresList;
 		private List<BoardTileViewModel> _TilesList;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="BoardViewModel"/> class.
+		/// </summary>
 		public BoardViewModel()
 		{
 			InitializeFiguresList();
 			GenerateTilesList();
 			Mediator.Register("ChangePlayer", ChangePlayer);
 		}
+
 
 		private void InitializeFiguresList()
 		{
@@ -103,19 +111,89 @@ namespace ChessWPF.ViewModel
 				SetBaseStyle(selectedTile);
 				selectedTile.Figure = null;
 				selectedTile = null;
+
+				Castling(eventCaller, selectedFigure);
+
 				selectedFigure.Position = eventCaller.Position;
 				eventCaller.Figure = selectedFigure;
 				SetBaseStyle(eventCaller);
-				Mediator.NotifyColleagues("ChangePlayer", actualPlayerColor);
 
 				if (oldFigure != null)
 					BoardFigures.Remove(oldFigure);
+
+				if (IsPromotion(eventCaller, selectedFigure))
+					ShowPromotion(eventCaller, selectedFigure);
+				else
+					Mediator.NotifyColleagues("ChangePlayer", actualPlayerColor);
 			}
 			else if (eventCaller.Figure != null && eventCaller.Figure.Color.Equals(actualPlayerColor))
 			{
 				selectedTile = eventCaller;
 				CheckSelectedStyle(eventCaller);
 				GeneratePossiblePositions(selectedTile.Figure);
+			}
+		}
+
+		private bool IsPromotion(BoardTileViewModel eventCaller, BoardFigure selectedFigure)
+		{
+			return selectedFigure.Type == FigureType.Pawn && (eventCaller.Position.Row == 0 || eventCaller.Position.Row == 7);
+		}
+		private void ShowPromotion(BoardTileViewModel eventCaller, BoardFigure selectedFigure)
+		{
+			PromotionViewModel = new PromotionViewModel(selectedFigure);
+			PromotionViewModel.Promotion += () =>
+			{
+				var fig = new BoardFigure(PromotionViewModel.SelectedFigure.Type, selectedFigure.Color, eventCaller.Position);
+				BoardFigures.Remove(eventCaller.Figure);
+				eventCaller.Figure = fig;
+				ShowPromotionView = false;
+				Mediator.NotifyColleagues("ChangePlayer", actualPlayerColor);
+			};
+			ShowPromotionView = true;
+		}
+
+		private void Castling(BoardTileViewModel eventCaller, BoardFigure selectedFigure)
+		{
+			if (selectedFigure.Type == FigureType.King)
+			{
+				if (selectedFigure.Color == FigureColor.White && selectedFigure.Position.ToString() == "E1")
+				{
+					if (eventCaller.Position.ToString() == "G1")
+					{
+						var rookOldTile = GetTileViewModelFromPosition("H1");
+						var rookNewTile = GetTileViewModelFromPosition("F1");
+						rookNewTile.Figure = rookOldTile.Figure;
+						rookNewTile.Figure.Position = rookNewTile.Position;
+						rookOldTile.Figure = null;
+					}
+					else if (eventCaller.Position.ToString() == "C1")
+					{
+						var rookOldTile = GetTileViewModelFromPosition("A1");
+						var rookNewTile = GetTileViewModelFromPosition("D1");
+						rookNewTile.Figure = rookOldTile.Figure;
+						rookNewTile.Figure.Position = rookNewTile.Position;
+						rookOldTile.Figure = null;
+					}
+				}
+				else if (selectedFigure.Color == FigureColor.Dark && selectedFigure.Position.ToString() == "E8")
+				{
+					if (eventCaller.Position.ToString() == "G8")
+					{
+						var rookOldTile = GetTileViewModelFromPosition("H8");
+						var rookNewTile = GetTileViewModelFromPosition("F8");
+						rookNewTile.Figure = rookOldTile.Figure;
+						rookNewTile.Figure.Position = rookNewTile.Position;
+						rookOldTile.Figure = null;
+					}
+					else if (eventCaller.Position.ToString() == "C8")
+					{
+						var rookOldTile = GetTileViewModelFromPosition("A8");
+						var rookNewTile = GetTileViewModelFromPosition("D8");
+						rookNewTile.Figure = rookOldTile.Figure;
+						rookNewTile.Figure.Position = rookNewTile.Position;
+						rookOldTile.Figure = null;
+					}
+				}
 			}
 		}
 
@@ -187,6 +265,23 @@ namespace ChessWPF.ViewModel
 		private BoardFigure GetFigureFromPosition(Position position)
 		{
 			return _FiguresList.FirstOrDefault(f => f.Position == position);
+		}
+
+		private BoardFigure GetFigureFromPosition(string position)
+		{
+			var pos = new Position(position);
+			return GetFigureFromPosition(pos);
+		}
+
+		private BoardTileViewModel GetTileViewModelFromPosition(Position position)
+		{
+			return _TilesList[position.TileIndex];
+		}
+
+		private BoardTileViewModel GetTileViewModelFromPosition(string position)
+		{
+			var pos = new Position(position);
+			return GetTileViewModelFromPosition(pos);
 		}
 
 		private void GeneratePossiblePositions(BoardFigure boardFigure)
@@ -405,7 +500,60 @@ namespace ChessWPF.ViewModel
 					possiblePositions.Add(position);
 			}
 
+			AddCastlingPositionForWhite(possiblePositions);
+			AddCastlingPositionForDark(possiblePositions);
+
 			return possiblePositions;
+		}
+
+		private void AddCastlingPositionForDark(List<Position> possiblePositions)
+		{
+			if (selectedTile.Figure.Color == FigureColor.Dark && selectedTile.Figure.Position.ToString() == "E8")
+			{
+				var rook = GetFigureFromPosition("H8");
+				if (rook != null && rook.Type == FigureType.Rook && rook.Color == FigureColor.Dark)
+				{
+					bool castlingPossible = GetFigureFromPosition("F8") == null;
+					castlingPossible = castlingPossible && GetFigureFromPosition("G8") == null;
+					if (castlingPossible)
+						possiblePositions.Add(new Position("G8"));
+				}
+
+				rook = GetFigureFromPosition("A8");
+				if (rook != null && rook.Type == FigureType.Rook && rook.Color == FigureColor.Dark)
+				{
+					bool castlingPossible = GetFigureFromPosition("B8") == null;
+					castlingPossible = castlingPossible && GetFigureFromPosition("C8") == null;
+					castlingPossible = castlingPossible && GetFigureFromPosition("D8") == null;
+					if (castlingPossible)
+						possiblePositions.Add(new Position("C8"));
+				}
+			}
+		}
+
+		private void AddCastlingPositionForWhite(List<Position> possiblePositions)
+		{
+			if (selectedTile.Figure.Color == FigureColor.White && selectedTile.Figure.Position.ToString() == "E1")
+			{
+				var rook = GetFigureFromPosition("H1");
+				if (rook != null && rook.Type == FigureType.Rook && rook.Color == FigureColor.White)
+				{
+					bool castlingPossible = GetFigureFromPosition("F1") == null;
+					castlingPossible = castlingPossible && GetFigureFromPosition("G1") == null;
+					if (castlingPossible)
+						possiblePositions.Add(new Position("G1"));
+				}
+
+				rook = GetFigureFromPosition(new Position("A1"));
+				if (rook != null && rook.Type == FigureType.Rook && rook.Color == FigureColor.White)
+				{
+					bool castlingPossible = GetFigureFromPosition("B1") == null;
+					castlingPossible = castlingPossible && GetFigureFromPosition("C1") == null;
+					castlingPossible = castlingPossible && GetFigureFromPosition("D1") == null;
+					if (castlingPossible)
+						possiblePositions.Add(new Position("C1"));
+				}
+			}
 		}
 
 		private Position ResolveFigurePosition(BoardTileViewModel caller)
@@ -430,22 +578,66 @@ namespace ChessWPF.ViewModel
 			return caller.Figure == null ? false : caller.Figure.Color == selectedTile.Figure.Color;
 		}
 
+		/// <summary>
+		/// Change Player
+		/// </summary>
+		/// <param name="message"></param>
 		public void ChangePlayer(object message)
 		{
 			actualPlayerColor = actualPlayerColor == FigureColor.Dark ? FigureColor.White : FigureColor.Dark;
 		}
 
+		/// <summary>
+		/// Gets or sets the list of the figures.
+		/// </summary>
+		/// <value>
+		/// The list of the figures.
+		/// </value>
 		public List<BoardFigure> BoardFigures
 		{
 			get { return _FiguresList; }
 			set { _FiguresList = value; }
 		}
 
+		/// <summary>
+		/// Gets or sets the list of the tiles.
+		/// </summary>
+		/// <value>
+		/// The list of the tiles.
+		/// </value>
 		public List<BoardTileViewModel> BoardTiles
 		{
 			get { return _TilesList; }
 			set { _TilesList = value; }
 		}
 
+
+		private bool _showPromotionView = false;
+
+		/// <summary>
+		/// Gets or sets a value indicating whether show PromotionView.
+		/// </summary>
+		/// <value>
+		///   <c>true</c> to show PromotionView; otherwise, <c>false</c>.
+		/// </value>
+		public bool ShowPromotionView
+		{
+			get { return _showPromotionView; }
+			set { SetProperty(ref _showPromotionView, value); }
+		}
+
+		private PromotionViewModel promotionViewModel;
+
+		/// <summary>
+		/// Gets or sets the promotion view model.
+		/// </summary>
+		/// <value>
+		/// The promotion view model.
+		/// </value>
+		public PromotionViewModel PromotionViewModel
+		{
+			get { return promotionViewModel; }
+			set { SetProperty(ref promotionViewModel, value); }
+		}
 	}
 }

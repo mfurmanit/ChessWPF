@@ -19,7 +19,7 @@ namespace ChessWPF.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -61,6 +61,15 @@ namespace ChessWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Goniec.
+        /// </summary>
+        public static string Bishop {
+            get {
+                return ResourceManager.GetString("Bishop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Czarny.
         /// </summary>
         public static string Dark_Player {
@@ -79,11 +88,38 @@ namespace ChessWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Król.
+        /// </summary>
+        public static string King {
+            get {
+                return ResourceManager.GetString("King", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skoczek.
+        /// </summary>
+        public static string Knight {
+            get {
+                return ResourceManager.GetString("Knight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ruch wykonuje:.
         /// </summary>
         public static string Move_Title {
             get {
                 return ResourceManager.GetString("Move_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pionek.
+        /// </summary>
+        public static string Pawn {
+            get {
+                return ResourceManager.GetString("Pawn", resourceCulture);
             }
         }
         
@@ -120,6 +156,24 @@ namespace ChessWPF.Properties {
         public static string Player_Seconds_60 {
             get {
                 return ResourceManager.GetString("Player_Seconds_60", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hetman.
+        /// </summary>
+        public static string Queen {
+            get {
+                return ResourceManager.GetString("Queen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wieża.
+        /// </summary>
+        public static string Rook {
+            get {
+                return ResourceManager.GetString("Rook", resourceCulture);
             }
         }
         
